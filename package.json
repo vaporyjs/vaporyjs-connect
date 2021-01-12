@@ -1,35 +1,36 @@
 {
-  "name": "ethereumjs-connect",
+  "name": "vaporyjs-connect",
+  "namespace": "vaporyjs",
   "version": "4.5.0",
-  "description": "Basic Ethereum connection tasks",
+  "description": "Basic Vapory connection tasks",
   "author": "The Augur Developers <team@augur.net>",
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "build": "browserify ./exports.js > ./dist/ethereumjs-connect.js && uglifyjs ./dist/ethereumjs-connect.js > ./dist/ethereumjs-connect.min.js",
+    "build": "browserify ./exports.js > ./dist/vaporyjs-connect.js && uglifyjs ./dist/vaporyjs-connect.js > ./dist/vaporyjs-connect.min.js",
     "build:tests": "browserify test/create-*.js test/set*.js > test/browser/bundle.js",
     "lint": "eslint src test/*.js",
     "test": "mocha test/*.js",
-    "link": "npm link ethrpc",
+    "link": "npm link vaprpc",
     "coverage": "istanbul cover --include-all-sources --root ./src ./node_modules/mocha/bin/_mocha test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethereumjs/ethereumjs-connect.git"
+    "url": "git+https://github.com/vaporyjs/vaporyjs-connect.git"
   },
   "keywords": [
-    "Ethereum",
+    "Vapory",
     "network",
     "connection"
   ],
   "bugs": {
-    "url": "https://github.com/ethereumjs/ethereumjs-connect/issues"
+    "url": "https://github.com/vaporyjs/vaporyjs-connect/issues"
   },
-  "homepage": "https://github.com/ethereumjs/ethereumjs-connect#readme",
+  "homepage": "https://github.com/vaporyjs/vaporyjs-connect#readme",
   "dependencies": {
     "async": "1.5.2",
     "clone": "2.1.1",
-    "ethrpc": "5.0.1"
+    "vaprpc": "5.0.1"
   },
   "devDependencies": {
     "babel-cli": "6.22.2",
@@ -40,7 +41,7 @@
     "chai": "3.5.0",
     "coveralls": "2.11.3",
     "eslint": "3.17.1",
-    "ethereumjs-stub-rpc-server": "2.1.6",
+    "vaporyjs-stub-rpc-server": "2.1.6",
     "immutable-delete": "1.0.1",
     "istanbul": "0.4.5",
     "mocha": "3.2.0",

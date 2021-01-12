@@ -17,7 +17,7 @@ describe("set-gas-price", function () {
   test({
     description: "set current gas price",
     rpc: {
-      eth: {
+      vap: {
         gasPrice: function (callback) {
           callback(null, "0x1234");
         }
@@ -30,7 +30,7 @@ describe("set-gas-price", function () {
   test({
     description: "gasPrice is undefined",
     rpc: {
-      eth: {
+      vap: {
         gasPrice: function (callback) {
           callback(null, undefined);
         }
@@ -44,7 +44,7 @@ describe("set-gas-price", function () {
   test({
     description: "gasPrice is null",
     rpc: {
-      eth: {
+      vap: {
         gasPrice: function (callback) {
           callback(null, null);
         }

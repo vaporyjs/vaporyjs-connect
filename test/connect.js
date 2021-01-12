@@ -6,7 +6,7 @@ var os = require("os");
 var assert = require("chai").assert;
 var immutableDelete = require("immutable-delete");
 var proxyquire = require("proxyquire").noPreserveCache();
-var StubServer = require("ethereumjs-stub-rpc-server");
+var StubServer = require("vaporyjs-stub-rpc-server");
 var connect = require("../src/connect");
 
 describe("connect", function () {
@@ -85,7 +85,7 @@ describe("connect", function () {
       options: {
         http: "http://127.0.0.1:8545",
         ws: null,
-        ipc: "/home/jack/.ethereum/geth.ipc",
+        ipc: "/home/jack/.vapory/gvap.ipc",
         contracts: {}
       }
     },
@@ -93,7 +93,7 @@ describe("connect", function () {
       assert.deepEqual(immutableDelete(vitals, "rpc"), {
         http: "http://127.0.0.1:8545",
         ws: null,
-        ipc: "/home/jack/.ethereum/geth.ipc"
+        ipc: "/home/jack/.vapory/gvap.ipc"
       });
     }
   });
@@ -103,7 +103,7 @@ describe("connect", function () {
       options: {
         http: "http://127.0.0.1:8545",
         ws: "ws://127.0.0.1:8546",
-        ipc: "/home/jack/.ethereum/geth.ipc",
+        ipc: "/home/jack/.vapory/gvap.ipc",
         contracts: {}
       }
     },
@@ -111,7 +111,7 @@ describe("connect", function () {
       assert.deepEqual(immutableDelete(vitals, "rpc"), {
         http: "http://127.0.0.1:8545",
         ws: "ws://127.0.0.1:8546",
-        ipc: "/home/jack/.ethereum/geth.ipc"
+        ipc: "/home/jack/.vapory/gvap.ipc"
       });
     }
   });
@@ -145,10 +145,10 @@ function connectTest(transportType, transportAddress) {
       default:
         throw new Error("Unknown transport type: " + transportType);
     }
-    server.addResponder(function (jso) { if (jso.method === "eth_coinbase") return "0x123456789abcdef123456789abcdef"; });
-    server.addResponder(function (jso) { if (jso.method === "eth_gasPrice") return "0x123"; });
-    server.addResponder(function (jso) { if (jso.method === "eth_blockNumber") return "0x1"; });
-    server.addResponder(function (jso) { if (jso.method === "eth_getBlockByNumber") return { number: "0x1", parentHash: "0x2", hash: "0x3" }; });
+    server.addResponder(function (jso) { if (jso.method === "vap_coinbase") return "0x123456789abcdef123456789abcdef"; });
+    server.addResponder(function (jso) { if (jso.method === "vap_gasPrice") return "0x123"; });
+    server.addResponder(function (jso) { if (jso.method === "vap_blockNumber") return "0x1"; });
+    server.addResponder(function (jso) { if (jso.method === "vap_getBlockByNumber") return { number: "0x1", parentHash: "0x2", hash: "0x3" }; });
     server.addResponder(function (jso) { if (jso.method === "net_version") return "apple"; });
     connect(connectOptions, function (err, vitals) {
       assert.isNull(err);
@@ -167,11 +167,11 @@ function connectTest(transportType, transportAddress) {
   function test(t) {
     it(t.description, function (done) {
       var connectOptions;
-      server.addResponder(function (jso) { if (jso.method === "eth_coinbase") return t.blockchain.coinbase; });
-      server.addResponder(function (jso) { if (jso.method === "eth_gasPrice") return t.blockchain.gasPrice; });
+      server.addResponder(function (jso) { if (jso.method === "vap_coinbase") return t.blockchain.coinbase; });
+      server.addResponder(function (jso) { if (jso.method === "vap_gasPrice") return t.blockchain.gasPrice; });
       server.addResponder(function (jso) { if (jso.method === "net_version") return t.blockchain.networkID; });
-      server.addResponder(function (jso) { if (jso.method === "eth_blockNumber") return t.blockchain.blockNumber; });
-      server.addResponder(function (jso) { if (jso.method === "eth_getBlockByNumber") return t.blockchain.currentBlock; });
+      server.addResponder(function (jso) { if (jso.method === "vap_blockNumber") return t.blockchain.blockNumber; });
+      server.addResponder(function (jso) { if (jso.method === "vap_getBlockByNumber") return t.blockchain.currentBlock; });
       connectOptions = {
         http: (transportType === "HTTP") ? transportAddress : undefined,
         ws: (transportType === "WS") ? transportAddress : undefined,

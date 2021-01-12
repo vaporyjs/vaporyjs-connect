@@ -3,16 +3,16 @@
 "use strict";
 
 var assert = require("chai").assert;
-var createEthrpcConfiguration = require("../src/create-ethrpc-configuration");
+var createVaprpcConfiguration = require("../src/create-vaprpc-configuration");
 
-describe("create-ethrpc-configuration", function () {
+describe("create-vaprpc-configuration", function () {
   var test = function (t) {
     it(t.description, function () {
-      t.assertions(createEthrpcConfiguration(t.params.configuration));
+      t.assertions(createVaprpcConfiguration(t.params.configuration));
     });
   };
   test({
-    description: "create ethrpc configuration",
+    description: "create vaprpc configuration",
     params: {
       configuration: {
         http: "http://somewhere:1234",
@@ -25,10 +25,10 @@ describe("create-ethrpc-configuration", function () {
         ipcAddresses: []
       }
     },
-    assertions: function (ethrpcConfiguration) {
-      assert.deepEqual(ethrpcConfiguration.httpAddresses, ["http://somewhere:1234"]);
-      assert.deepEqual(ethrpcConfiguration.wsAddresses, ["ws://somewhere.else:5678"]);
-      assert.deepEqual(ethrpcConfiguration.ipcAddresses, []);
+    assertions: function (vaprpcConfiguration) {
+      assert.deepEqual(vaprpcConfiguration.httpAddresses, ["http://somewhere:1234"]);
+      assert.deepEqual(vaprpcConfiguration.wsAddresses, ["ws://somewhere.else:5678"]);
+      assert.deepEqual(vaprpcConfiguration.ipcAddresses, []);
     }
   });
 });

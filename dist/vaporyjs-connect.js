@@ -14990,7 +14990,7 @@ module.exports={
   "_args": [
     [
       "elliptic@6.4.0",
-      "/home/jack/src/ethereumjs-connect"
+      "/home/jack/src/vaporyjs-connect"
     ]
   ],
   "_from": "elliptic@6.4.0",
@@ -15016,7 +15016,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz",
   "_spec": "6.4.0",
-  "_where": "/home/jack/src/ethereumjs-connect",
+  "_where": "/home/jack/src/vaporyjs-connect",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -16503,7 +16503,7 @@ module.exports = require('./lib/index.js')
 
 },{"./lib/index.js":40}],40:[function(require,module,exports){
 (function (Buffer){
-const utils = require('ethereumjs-util')
+const utils = require('vaporyjs-util')
 const BN = require('bn.js')
 
 var ABI = function () {
@@ -17013,7 +17013,7 @@ function isNumeric (c) {
   return (c >= '0') && (c <= '9')
 }
 
-// For a "documentation" refer to https://github.com/ethereum/serpent/blob/develop/preprocess.cpp
+// For a "documentation" refer to https://github.com/vaporyco/serpent/blob/develop/preprocess.cpp
 ABI.fromSerpent = function (sig) {
   var ret = []
   for (var i = 0; i < sig.length; i++) {
@@ -17062,7 +17062,7 @@ ABI.toSerpent = function (types) {
 module.exports = ABI
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":7,"buffer":14,"ethereumjs-util":41}],41:[function(require,module,exports){
+},{"bn.js":7,"buffer":14,"vaporyjs-util":41}],41:[function(require,module,exports){
 (function (Buffer){
 const SHA3 = require('keccakjs')
 const secp256k1 = require('secp256k1')
@@ -17126,7 +17126,7 @@ exports.SHA3_RLP = new Buffer(exports.SHA3_RLP_S, 'hex')
 exports.BN = BN
 
 /**
- * [`rlp`](https://github.com/ethereumjs/rlp)
+ * [`rlp`](https://github.com/vaporycojs/rlp)
  * @var {Function}
  */
 exports.rlp = rlp
@@ -17373,7 +17373,7 @@ exports.isValidPrivate = function (privateKey) {
 
 /**
  * Checks if the public key satisfies the rules of the curve secp256k1
- * and the requirements of Ethereum.
+ * and the requirements of Vapory.
  * @method isValidPublic
  * @param {Buffer} publicKey The two points of an uncompressed key, unless sanitize is enabled
  * @param {Boolean} [sanitize=false] Accept public keys in other formats
@@ -17393,8 +17393,8 @@ exports.isValidPublic = function (publicKey, sanitize) {
 }
 
 /**
- * Returns the ethereum address of a given public key.
- * Accepts "Ethereum public keys" and SEC1 encoded keys.
+ * Returns the vapory address of a given public key.
+ * Accepts "Vapory public keys" and SEC1 encoded keys.
  * @method publicToAddress
  * @param {Buffer} pubKey The two points of an uncompressed key, unless sanitize is enabled
  * @param {Boolean} [sanitize=false] Accept public keys in other formats
@@ -17411,7 +17411,7 @@ exports.pubToAddress = exports.publicToAddress = function (pubKey, sanitize) {
 }
 
 /**
- * Returns the ethereum public key of a given private key
+ * Returns the vapory public key of a given private key
  * @method privateToPublic
  * @param {Buffer} privateKey A private key must be 256 bits wide
  * @return {Buffer}
@@ -17423,7 +17423,7 @@ var privateToPublic = exports.privateToPublic = function (privateKey) {
 }
 
 /**
- * Converts a public key to the Ethereum format.
+ * Converts a public key to the Vapory format.
  * @method importPublic
  * @param {Buffer} publicKey
  * @return {Buffer}
@@ -17473,7 +17473,7 @@ exports.ecrecover = function (msgHash, v, r, s) {
 }
 
 /**
- * Convert signature parameters into the format of `eth_sign` RPC method
+ * Convert signature parameters into the format of `vap_sign` RPC method
  * @method toRpcSig
  * @param {Number} v
  * @param {Buffer} r
@@ -17481,13 +17481,13 @@ exports.ecrecover = function (msgHash, v, r, s) {
  * @return {String} sig
  */
 exports.toRpcSig = function (v, r, s) {
-  // geth (and the RPC eth_sign method) uses the 65 byte format used by Bitcoin
-  // FIXME: this might change in the future - https://github.com/ethereum/go-ethereum/issues/2053
+  // gvap (and the RPC vap_sign method) uses the 65 byte format used by Bitcoin
+  // FIXME: this might change in the future - https://github.com/vaporyco/go-vapory/issues/2053
   return exports.bufferToHex(Buffer.concat([ r, s, exports.toBuffer(v - 27) ]))
 }
 
 /**
- * Convert signature format of the `eth_sign` RPC method to signature parameters
+ * Convert signature format of the `vap_sign` RPC method to signature parameters
  * @method fromRpcSig
  * @param {String} sig
  * @return {Object}
@@ -17496,7 +17496,7 @@ exports.fromRpcSig = function (sig) {
   sig = exports.toBuffer(sig)
 
   var v = sig[64]
-  // support both versions of `eth_sign` responses
+  // support both versions of `vap_sign` responses
   if (v < 27) {
     v += 27
   }
@@ -17509,7 +17509,7 @@ exports.fromRpcSig = function (sig) {
 }
 
 /**
- * Returns the ethereum address of a given private key
+ * Returns the vapory address of a given private key
  * @method privateToAddress
  * @param {Buffer} privateKey A private key must be 256 bits wide
  * @return {Buffer}
@@ -17836,7 +17836,7 @@ var BlockAndLogStreamer = /** @class */ (function () {
         }); };
         this.reconcileNewBlockCallbackStyle = function (block, callback) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.warn("Deprecation Warning: The callback interface for ethereumjs-blockstream is deprecated and will be removed in a future version of this library.  Use BlockAndLogStreamer.reconcileNewBlock instead.");
+                console.warn("Deprecation Warning: The callback interface for vaporyjs-blockstream is deprecated and will be removed in a future version of this library.  Use BlockAndLogStreamer.reconcileNewBlock instead.");
                 this.reconcileNewBlock(block)
                     .then(function () { return callback(undefined); })
                     .catch(function (error) { return callback(error); });
@@ -17957,7 +17957,7 @@ var BlockAndLogStreamer = /** @class */ (function () {
         this.blockRetention = (configuration && configuration.blockRetention) ? configuration.blockRetention : 100;
     }
     BlockAndLogStreamer.createCallbackStyle = function (getBlockByHash, getLogs, configuration) {
-        console.warn("Deprecation Warning: The callback interface for ethereumjs-blockstream is deprecated and will be removed in a future version of this library.  Use BlockAndLogStreamer constructor instead.");
+        console.warn("Deprecation Warning: The callback interface for vaporyjs-blockstream is deprecated and will be removed in a future version of this library.  Use BlockAndLogStreamer constructor instead.");
         var wrappedGetBlockByHash = function (hash) {
             return new Promise(function (resolve, reject) {
                 getBlockByHash(hash, function (error, block) {
@@ -18351,9 +18351,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ethUtil = require('ethereumjs-util');
-var fees = require('ethereum-common/params.json');
-var BN = ethUtil.BN;
+var vapUtil = require('vaporyjs-util');
+var fees = require('vapory-common/params.json');
+var BN = vapUtil.BN;
 
 // secp256k1n/2
 var N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16);
@@ -18387,7 +18387,7 @@ var N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f4668
  * @param {Buffer} data.gasLimit transaction gas limit
  * @param {Buffer} data.gasPrice transaction gas price
  * @param {Buffer} data.to to the to address
- * @param {Buffer} data.value the amount of ether sent
+ * @param {Buffer} data.value the amount of vapor sent
  * @param {Buffer} data.data this will contain the data of the message or the init of a contract
  * @param {Buffer} data.v EC signature parameter
  * @param {Buffer} data.r EC signature parameter
@@ -18455,7 +18455,7 @@ var Transaction = function () {
      * @name serialize
      */
     // attached serialize
-    ethUtil.defineProperties(this, fields, data);
+    vapUtil.defineProperties(this, fields, data);
 
     /**
      * @property {Buffer} from (read only) sender address of this transaction, mathematically derived from other parameters.
@@ -18469,7 +18469,7 @@ var Transaction = function () {
     });
 
     // calculate chainId from signature
-    var sigV = ethUtil.bufferToInt(this.v);
+    var sigV = vapUtil.bufferToInt(this.v);
     var chainId = Math.floor((sigV - 35) / 2);
     if (chainId < 0) chainId = 0;
 
@@ -18523,7 +18523,7 @@ var Transaction = function () {
       }
 
       // create hash
-      return ethUtil.rlphash(items);
+      return vapUtil.rlphash(items);
     }
 
     /**
@@ -18549,7 +18549,7 @@ var Transaction = function () {
         return this._from;
       }
       var pubkey = this.getSenderPublicKey();
-      this._from = ethUtil.publicToAddress(pubkey);
+      this._from = vapUtil.publicToAddress(pubkey);
       return this._from;
     }
 
@@ -18582,11 +18582,11 @@ var Transaction = function () {
       }
 
       try {
-        var v = ethUtil.bufferToInt(this.v);
+        var v = vapUtil.bufferToInt(this.v);
         if (this._chainId > 0) {
           v -= this._chainId * 2 + 8;
         }
-        this._senderPubKey = ethUtil.ecrecover(msgHash, v, this.r, this.s);
+        this._senderPubKey = vapUtil.ecrecover(msgHash, v, this.r, this.s);
       } catch (e) {
         return false;
       }
@@ -18603,7 +18603,7 @@ var Transaction = function () {
     key: 'sign',
     value: function sign(privateKey) {
       var msgHash = this.hash(false);
-      var sig = ethUtil.ecsign(msgHash, privateKey);
+      var sig = vapUtil.ecsign(msgHash, privateKey);
       if (this._chainId > 0) {
         sig.v += this._chainId * 2 + 8;
       }
@@ -18684,7 +18684,7 @@ var Transaction = function () {
 module.exports = Transaction;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":14,"ethereum-common/params.json":38,"ethereumjs-util":47}],47:[function(require,module,exports){
+},{"buffer":14,"vapory-common/params.json":38,"vaporyjs-util":47}],47:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -18696,7 +18696,7 @@ var assert = require('assert');
 var rlp = require('rlp');
 var BN = require('bn.js');
 var createHash = require('create-hash');
-Object.assign(exports, require('ethjs-util'));
+Object.assign(exports, require('vapjs-util'));
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -18753,7 +18753,7 @@ exports.SHA3_RLP = Buffer.from(exports.SHA3_RLP_S, 'hex');
 exports.BN = BN;
 
 /**
- * [`rlp`](https://github.com/ethereumjs/rlp)
+ * [`rlp`](https://github.com/vaporycojs/rlp)
  * @var {Function}
  */
 exports.rlp = rlp;
@@ -18951,7 +18951,7 @@ exports.isValidPrivate = function (privateKey) {
 
 /**
  * Checks if the public key satisfies the rules of the curve secp256k1
- * and the requirements of Ethereum.
+ * and the requirements of Vapory.
  * @param {Buffer} publicKey The two points of an uncompressed key, unless sanitize is enabled
  * @param {Boolean} [sanitize=false] Accept public keys in other formats
  * @return {Boolean}
@@ -18970,8 +18970,8 @@ exports.isValidPublic = function (publicKey, sanitize) {
 };
 
 /**
- * Returns the ethereum address of a given public key.
- * Accepts "Ethereum public keys" and SEC1 encoded keys.
+ * Returns the vapory address of a given public key.
+ * Accepts "Vapory public keys" and SEC1 encoded keys.
  * @param {Buffer} pubKey The two points of an uncompressed key, unless sanitize is enabled
  * @param {Boolean} [sanitize=false] Accept public keys in other formats
  * @return {Buffer}
@@ -18987,7 +18987,7 @@ exports.pubToAddress = exports.publicToAddress = function (pubKey, sanitize) {
 };
 
 /**
- * Returns the ethereum public key of a given private key
+ * Returns the vapory public key of a given private key
  * @param {Buffer} privateKey A private key must be 256 bits wide
  * @return {Buffer}
  */
@@ -18998,7 +18998,7 @@ var privateToPublic = exports.privateToPublic = function (privateKey) {
 };
 
 /**
- * Converts a public key to the Ethereum format.
+ * Converts a public key to the Vapory format.
  * @param {Buffer} publicKey
  * @return {Buffer}
  */
@@ -19027,15 +19027,15 @@ exports.ecsign = function (msgHash, privateKey) {
 };
 
 /**
- * Returns the keccak-256 hash of `message`, prefixed with the header used by the `eth_sign` RPC call.
- * The output of this function can be fed into `ecsign` to produce the same signature as the `eth_sign`
+ * Returns the keccak-256 hash of `message`, prefixed with the header used by the `vap_sign` RPC call.
+ * The output of this function can be fed into `ecsign` to produce the same signature as the `vap_sign`
  * call for a given `message`, or fed to `ecrecover` along with a signature to recover the public key
  * used to produce the signature.
  * @param message
  * @returns {Buffer} hash
  */
 exports.hashPersonalMessage = function (message) {
-  var prefix = exports.toBuffer('\x19Ethereum Signed Message:\n' + message.length.toString());
+  var prefix = exports.toBuffer('\x19Vapory Signed Message:\n' + message.length.toString());
   return exports.sha3(Buffer.concat([prefix, message]));
 };
 
@@ -19058,7 +19058,7 @@ exports.ecrecover = function (msgHash, v, r, s) {
 };
 
 /**
- * Convert signature parameters into the format of `eth_sign` RPC method
+ * Convert signature parameters into the format of `vap_sign` RPC method
  * @param {Number} v
  * @param {Buffer} r
  * @param {Buffer} s
@@ -19070,14 +19070,14 @@ exports.toRpcSig = function (v, r, s) {
     throw new Error('Invalid recovery id');
   }
 
-  // geth (and the RPC eth_sign method) uses the 65 byte format used by Bitcoin
-  // FIXME: this might change in the future - https://github.com/ethereum/go-ethereum/issues/2053
+  // gvap (and the RPC vap_sign method) uses the 65 byte format used by Bitcoin
+  // FIXME: this might change in the future - https://github.com/vaporyco/go-vapory/issues/2053
   return exports.bufferToHex(Buffer.concat([exports.setLengthLeft(r, 32), exports.setLengthLeft(s, 32), exports.toBuffer(v - 27)]));
 };
 
 /**
- * Convert signature format of the `eth_sign` RPC method to signature parameters
- * NOTE: all because of a bug in geth: https://github.com/ethereum/go-ethereum/issues/2053
+ * Convert signature format of the `vap_sign` RPC method to signature parameters
+ * NOTE: all because of a bug in gvap: https://github.com/vaporyco/go-vapory/issues/2053
  * @param {String} sig
  * @return {Object}
  */
@@ -19090,7 +19090,7 @@ exports.fromRpcSig = function (sig) {
   }
 
   var v = sig[64];
-  // support both versions of `eth_sign` responses
+  // support both versions of `vap_sign` responses
   if (v < 27) {
     v += 27;
   }
@@ -19103,7 +19103,7 @@ exports.fromRpcSig = function (sig) {
 };
 
 /**
- * Returns the ethereum address of a given private key
+ * Returns the vapory address of a given private key
  * @param {Buffer} privateKey A private key must be 256 bits wide
  * @return {Buffer}
  */
@@ -19355,7 +19355,7 @@ exports.defineProperties = function (self, fields, data) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"assert":2,"bn.js":7,"buffer":14,"create-hash":18,"ethjs-util":48,"keccak":186,"rlp":234,"secp256k1":236}],48:[function(require,module,exports){
+},{"assert":2,"bn.js":7,"buffer":14,"create-hash":18,"vapjs-util":48,"keccak":186,"rlp":234,"secp256k1":236}],48:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -19371,7 +19371,7 @@ function padToEven(value) {
   var a = value; // eslint-disable-line
 
   if (typeof a !== 'string') {
-    throw new Error('[ethjs-util] while padding to even, value must be string, is currently ' + typeof a + ', while padToEven.');
+    throw new Error('[vapjs-util] while padding to even, value must be string, is currently ' + typeof a + ', while padToEven.');
   }
 
   if (a.length % 2) {
@@ -19410,7 +19410,7 @@ function intToBuffer(i) {
  */
 function getBinarySize(str) {
   if (typeof str !== 'string') {
-    throw new Error('[ethjs-util] while getting binary size, method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
+    throw new Error('[vapjs-util] while getting binary size, method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
   }
 
   return Buffer.byteLength(str, 'utf8');
@@ -19427,10 +19427,10 @@ function getBinarySize(str) {
  */
 function arrayContainsArray(superset, subset, some) {
   if (Array.isArray(superset) !== true) {
-    throw new Error('[ethjs-util] method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
+    throw new Error('[vapjs-util] method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
   }
   if (Array.isArray(subset) !== true) {
-    throw new Error('[ethjs-util] method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
+    throw new Error('[vapjs-util] method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
   }
 
   return subset[Boolean(some) && 'some' || 'every'](function (value) {
@@ -19520,10 +19520,10 @@ function fromAscii(stringValue) {
  */
 function getKeys(params, key, allowEmpty) {
   if (!Array.isArray(params)) {
-    throw new Error('[ethjs-util] method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
+    throw new Error('[vapjs-util] method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
   }
   if (typeof key !== 'string') {
-    throw new Error('[ethjs-util] method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
+    throw new Error('[vapjs-util] method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
   }
 
   var result = []; // eslint-disable-line
@@ -19611,7 +19611,7 @@ module.exports = BlockNotifier;
 "use strict";
 
 var Promise = require("es6-promise").Promise;
-var BlockAndLogStreamer = require("ethereumjs-blockstream").BlockAndLogStreamer;
+var BlockAndLogStreamer = require("vaporyjs-blockstream").BlockAndLogStreamer;
 var BlockNotifier = require("../block-management/block-notifier");
 var internalState = require("../internal-state");
 var isFunction = require("../utils/is-function");
@@ -19625,7 +19625,7 @@ function subscribeToBlockNotifier(blockNotifier, blockAndLogStreamer) {
 }
 
 /**
- * Used internally.  Instantiates a new BlockAndLogStreamer backed by ethrpc and BlockNotifier.
+ * Used internally.  Instantiates a new BlockAndLogStreamer backed by vaprpc and BlockNotifier.
  *
  * @typedef Block
  * @type object
@@ -19703,11 +19703,11 @@ function createBlockAndLogStreamer(configuration, transport, cb) {
 
 module.exports = createBlockAndLogStreamer;
 
-},{"../block-management/block-notifier":49,"../internal-state":73,"../utils/is-function":130,"../utils/log-error":136,"../utils/noop":137,"es6-promise":37,"ethereumjs-blockstream":44}],51:[function(require,module,exports){
+},{"../block-management/block-notifier":49,"../internal-state":73,"../utils/is-function":130,"../utils/log-error":136,"../utils/noop":137,"es6-promise":37,"vaporyjs-blockstream":44}],51:[function(require,module,exports){
 "use strict";
 
 var onNewBlock = require("../block-management/on-new-block");
-var eth_getBlockByNumber = require("../wrappers/eth").getBlockByNumber;
+var vap_getBlockByNumber = require("../wrappers/eth").getBlockByNumber;
 var RPCError = require("../errors/rpc-error");
 var errors = require("../errors/codes");
 
@@ -19716,7 +19716,7 @@ var errors = require("../errors/codes");
  */
 function ensureLatestBlock(callback) {
   return function (dispatch) {
-    dispatch(eth_getBlockByNumber(["latest", false], function (err, block) {
+    dispatch(vap_getBlockByNumber(["latest", false], function (err, block) {
       if (err) return callback(err);
       if (block == null) return callback(new RPCError(errors.BLOCK_NOT_FOUND));
       dispatch(onNewBlock(block));
@@ -19730,7 +19730,7 @@ module.exports = ensureLatestBlock;
 },{"../block-management/on-new-block":54,"../errors/codes":69,"../errors/rpc-error":71,"../wrappers/eth":148}],52:[function(require,module,exports){
 "use strict";
 
-var eth = require("../wrappers/eth");
+var vap = require("../wrappers/eth");
 var addNewHeadsSubscription = require("../subscriptions/add-new-heads-subscription");
 var removeSubscription = require("../subscriptions/remove-subscription");
 var logError = require("../utils/log-error");
@@ -19742,16 +19742,16 @@ function createTransportAdapter(transporter) {
   return function (dispatch) {
     return {
       getLatestBlock: function (callback) {
-        dispatch(eth.getBlockByNumber(["latest", false], callback));
+        dispatch(vap.getBlockByNumber(["latest", false], callback));
       },
       getBlockByHash: function (hash, callback) {
-        dispatch(eth.getBlockByHash([hash, false], callback));
+        dispatch(vap.getBlockByHash([hash, false], callback));
       },
       getBlockByNumber: function (blockNumber, callback) {
-        dispatch(eth.getBlockByNumber([blockNumber, false], callback));
+        dispatch(vap.getBlockByNumber([blockNumber, false], callback));
       },
       getLogs: function (filters, callback) {
-        dispatch(eth.getLogs(filters, callback));
+        dispatch(vap.getLogs(filters, callback));
       },
       subscribeToReconnects: function (onReconnect) {
         return transporter.addReconnectListener(onReconnect);
@@ -19768,14 +19768,14 @@ function createTransportAdapter(transporter) {
       subscribeToNewHeads: function (onNewHead, onSubscriptionError) {
         var token = (nextToken++).toString();
         subscriptionMapping[token] = null;
-        dispatch(eth.subscribe(["newHeads", {}], function (err, subscriptionID) {
+        dispatch(vap.subscribe(["newHeads", {}], function (err, subscriptionID) {
           if (err) return onSubscriptionError(err);
           if (!subscriptionID) return onSubscriptionError(subscriptionID);
 
           // if the caller already unsubscribed by the time this callback is
           // called, we need to unsubscribe from the remote
           if (subscriptionMapping[token] === undefined) {
-            dispatch(eth.unsubscribe(subscriptionID, logError));
+            dispatch(vap.unsubscribe(subscriptionID, logError));
           } else {
             subscriptionMapping[token] = subscriptionID;
             dispatch(addNewHeadsSubscription(subscriptionID, onNewHead));
@@ -19788,7 +19788,7 @@ function createTransportAdapter(transporter) {
           var subscriptionID = subscriptionMapping[token];
           delete subscriptionMapping[token];
           dispatch(removeSubscription(subscriptionID));
-          dispatch(eth.unsubscribe(subscriptionID, logError));
+          dispatch(vap.unsubscribe(subscriptionID, logError));
         }
       },
     };
@@ -19913,7 +19913,7 @@ function SubscribingBlockNotifier(transport, onUnrecoverableSubscriptionFailure)
   }.bind(this);
 
   onNewHead = function (/*blockHeader*/) {
-    // unfortunately we have to fetch the new block until https://github.com/ethereum/go-ethereum/issues/13858 is fixed
+    // unfortunately we have to fetch the new block until https://github.com/vaporyco/go-vapory/issues/13858 is fixed
     transport.getLatestBlock(function (error, newBlock) {
       validateBlock(newBlock);
       this.notifySubscribers(newBlock);
@@ -19945,7 +19945,7 @@ module.exports = SubscribingBlockNotifier;
 },{"../validate/validate-block":141,"./notifier":53}],57:[function(require,module,exports){
 "use strict";
 
-var eth_blockNumber = require("../wrappers/eth").blockNumber;
+var vap_blockNumber = require("../wrappers/eth").blockNumber;
 var miner = require("../wrappers/miner");
 var isFunction = require("../utils/is-function");
 var constants = require("../constants");
@@ -19960,7 +19960,7 @@ module.exports = function (blocks, mine, callback) {
     var startBlock, endBlock;
     function waitForNextBlocks(err) {
       if (err) return callback(err);
-      dispatch(eth_blockNumber(null, function (err, blockNumber) {
+      dispatch(vap_blockNumber(null, function (err, blockNumber) {
         if (err) return callback(err);
         if (blockNumber == null) return callback(new RPCError(errors.NO_RESPONSE));
         blockNumber = parseInt(blockNumber, 16);
@@ -20026,7 +20026,7 @@ var errors = require("./errors/codes");
 var RPCError = require("./errors/rpc-error");
 
 /**
- * Initiates a connection to Ethereum.  This must be called before any other methods are called.
+ * Initiates a connection to Vapory.  This must be called before any other methods are called.
  *
  * @typedef configuration
  * @type {object}
@@ -20094,7 +20094,7 @@ module.exports = {
     U_PORT: "uPort",
     LEDGER: "ledger",
     PRIVATE_KEY: "privateKey",
-    UNLOCKED_ETHEREUM_NODE: "unlockedEthereumNode",
+    UNLOCKED_VAPORY_NODE: "unlockedVaporyNode",
     META_MASK: "metaMask",
   },
 
@@ -20115,7 +20115,7 @@ module.exports = {
 
   DEFAULT_GAS: "0x2fd618",
 
-  ETHER: new BigNumber(10, 10).toPower(18),
+  VAPOR: new BigNumber(10, 10).toPower(18),
 
 };
 
@@ -20145,13 +20145,13 @@ var callContractFunction = require("./transact/call-contract-function");
 var transact = require("./transact/transact");
 
 var raw = require("./wrappers/raw");
-var eth = require("./wrappers/eth");
+var vap = require("./wrappers/eth");
 var net_ = require("./wrappers/net");
 var web3 = require("./wrappers/web3");
 var personal = require("./wrappers/personal");
 var shh = require("./wrappers/shh");
 var miner = require("./wrappers/miner");
-var sendEther = require("./wrappers/send-ether");
+var sendVapor = require("./wrappers/send-vapor");
 var publish = require("./wrappers/publish");
 var bindDispatch = require("./wrappers/bind-dispatch");
 var isUnlocked = require("./wrappers/is-unlocked");
@@ -20169,7 +20169,7 @@ var startBlockStream = require("./start-block-stream.js");
 var internalState = require("./internal-state");
 var constants = require("./constants");
 
-var createEthrpc = function (reducer) {
+var createVaprpc = function (reducer) {
   var store = createStore(reducer, thunkSubscribeEnhancer);
   var dispatch = store.dispatch;
   return {
@@ -20203,12 +20203,12 @@ var createEthrpc = function (reducer) {
     includeInTransactionRelay: function (method) { return dispatch(includeInTransactionRelay(method)); },
 
     /******************************
-     * Ethereum JSON-RPC bindings *
+     * Vapory JSON-RPC bindings *
      ******************************/
 
     raw: function (cmd, params, callback) { return dispatch(raw(cmd, params, callback)); },
 
-    eth: bindDispatch(dispatch, eth),
+    vap: bindDispatch(dispatch, vap),
     net: bindDispatch(dispatch, net_),
     web3: bindDispatch(dispatch, web3),
     shh: bindDispatch(dispatch, shh),
@@ -20225,76 +20225,76 @@ var createEthrpc = function (reducer) {
     version: function (callback) { return dispatch(net_.version(null, callback)); },
     netVersion: function (callback) { return this.version(callback); },
 
-    // eth_
-    accounts: function (callback) { return dispatch(eth.accounts(null, callback)); },
-    blockNumber: function (callback) { return dispatch(eth.blockNumber(null, callback)); },
+    // vap_
+    accounts: function (callback) { return dispatch(vap.accounts(null, callback)); },
+    blockNumber: function (callback) { return dispatch(vap.blockNumber(null, callback)); },
     call: function (transaction, blockNumber, callback) {
       if (isFunction(blockNumber)) {
         callback = blockNumber;
         blockNumber = null;
       }
-      return dispatch(eth.call([transaction, validateAndDefaultBlockNumber(blockNumber)], callback));
+      return dispatch(vap.call([transaction, validateAndDefaultBlockNumber(blockNumber)], callback));
     },
-    coinbase: function (callback) { return dispatch(eth.coinbase(null, callback)); },
+    coinbase: function (callback) { return dispatch(vap.coinbase(null, callback)); },
     // note: compileLLL, compileSerpent, and compileSolidity intentionally left out
     estimateGas: function (transaction, blockNumber, callback) {
       if (isFunction(blockNumber)) {
         callback = blockNumber;
         blockNumber = null;
       }
-      return dispatch(eth.estimateGas([transaction, validateAndDefaultBlockNumber(blockNumber)], callback));
+      return dispatch(vap.estimateGas([transaction, validateAndDefaultBlockNumber(blockNumber)], callback));
     },
-    gasPrice: function (callback) { return dispatch(eth.gasPrice(null, callback)); },
+    gasPrice: function (callback) { return dispatch(vap.gasPrice(null, callback)); },
     getBalance: function (address, blockNumber, callback) {
       if (isFunction(blockNumber)) {
         callback = blockNumber;
         blockNumber = null;
       }
-      return dispatch(eth.getBalance([address, validateAndDefaultBlockNumber(blockNumber)], callback));
+      return dispatch(vap.getBalance([address, validateAndDefaultBlockNumber(blockNumber)], callback));
     },
     balance: function (address, blockNumber, callback) {
       return this.getBalance(address, blockNumber, callback);
     },
     getBlockByHash: function (hash, shouldReturnFullTransactions, callback) {
       if (shouldReturnFullTransactions === undefined) shouldReturnFullTransactions = true;
-      return dispatch(eth.getBlockByHash([hash, Boolean(shouldReturnFullTransactions)], callback));
+      return dispatch(vap.getBlockByHash([hash, Boolean(shouldReturnFullTransactions)], callback));
     },
     getBlockByNumber: function (number, shouldReturnFullTransactions, callback) {
       if (shouldReturnFullTransactions !== true) shouldReturnFullTransactions = false;
-      return dispatch(eth.getBlockByNumber([validateAndDefaultBlockNumber(number), Boolean(shouldReturnFullTransactions)], callback));
+      return dispatch(vap.getBlockByNumber([validateAndDefaultBlockNumber(number), Boolean(shouldReturnFullTransactions)], callback));
     },
     getBlock: function (number, shouldReturnFullTransactions, callback) { return this.getBlockByNumber(number, shouldReturnFullTransactions, callback); },
-    getCode: function (address, blockNumber, callback) { return dispatch(eth.getCode([address, validateAndDefaultBlockNumber(blockNumber)], callback)); },
-    getFilterChanges: function (filter, callback) { return dispatch(eth.getFilterChanges([filter], callback)); },
-    getFilterLogs: function (filter, callback) { return dispatch(eth.getFilterLogs(filter, callback)); },
-    getLogs: function (filter, callback) { return dispatch(eth.getLogs(filter, callback)); },
+    getCode: function (address, blockNumber, callback) { return dispatch(vap.getCode([address, validateAndDefaultBlockNumber(blockNumber)], callback)); },
+    getFilterChanges: function (filter, callback) { return dispatch(vap.getFilterChanges([filter], callback)); },
+    getFilterLogs: function (filter, callback) { return dispatch(vap.getFilterLogs(filter, callback)); },
+    getLogs: function (filter, callback) { return dispatch(vap.getLogs(filter, callback)); },
     // TODO: add map lookup support (at the moment, this function doesn't support
     // map lookups due to rounding errors after 51-bits for JS numbers)
-    getStorageAt: function (address, position, blockNumber, callback) { return dispatch(eth.getStorageAt([address, position, validateAndDefaultBlockNumber(blockNumber)], callback)); },
-    getTransactionByHash: function (transactionHash, callback) { return dispatch(eth.getTransactionByHash([transactionHash], callback)); },
+    getStorageAt: function (address, position, blockNumber, callback) { return dispatch(vap.getStorageAt([address, position, validateAndDefaultBlockNumber(blockNumber)], callback)); },
+    getTransactionByHash: function (transactionHash, callback) { return dispatch(vap.getTransactionByHash([transactionHash], callback)); },
     getTransaction: function (transactionHash, callback) { return this.getTransactionByHash(transactionHash, callback); },
-    getTransactionCount: function (address, callback) { return dispatch(eth.getTransactionCount([address, "latest"], callback)); },
-    getPendingTransactionCount: function (address, callback) { return dispatch(eth.getTransactionCount([address, "pending"], callback)); },
-    getTransactionReceipt: function (transactionHash, callback) { return dispatch(eth.getTransactionReceipt(transactionHash, callback)); },
-    getUncleByBlockHashAndIndex: function (blockHash, index, callback) { return dispatch(eth.getUncleByBlockHashAndIndex([blockHash, index], callback)); },
-    getUncleByBlockNumberAndIndex: function (blockNumber, index, callback) { return dispatch(eth.getUncleByBlockNumberAndIndex([validateAndDefaultBlockNumber(blockNumber), index], callback)); },
+    getTransactionCount: function (address, callback) { return dispatch(vap.getTransactionCount([address, "latest"], callback)); },
+    getPendingTransactionCount: function (address, callback) { return dispatch(vap.getTransactionCount([address, "pending"], callback)); },
+    getTransactionReceipt: function (transactionHash, callback) { return dispatch(vap.getTransactionReceipt(transactionHash, callback)); },
+    getUncleByBlockHashAndIndex: function (blockHash, index, callback) { return dispatch(vap.getUncleByBlockHashAndIndex([blockHash, index], callback)); },
+    getUncleByBlockNumberAndIndex: function (blockNumber, index, callback) { return dispatch(vap.getUncleByBlockNumberAndIndex([validateAndDefaultBlockNumber(blockNumber), index], callback)); },
     getUncle: function (blockNumber, index, callback) { return this.getUncleByBlockNumberAndIndex(blockNumber, index, callback); },
-    getUncleCountByBlockHash: function (blockHash, callback) { return dispatch(eth.getUncleCountByBlockHash([blockHash], callback)); },
-    getUncleCountByBlockNumber: function (blockNumber, callback) { return dispatch(eth.getUncleCountByBlockNumber([validateAndDefaultBlockNumber(blockNumber)], callback)); },
+    getUncleCountByBlockHash: function (blockHash, callback) { return dispatch(vap.getUncleCountByBlockHash([blockHash], callback)); },
+    getUncleCountByBlockNumber: function (blockNumber, callback) { return dispatch(vap.getUncleCountByBlockNumber([validateAndDefaultBlockNumber(blockNumber)], callback)); },
     getUncleCount: function (blockNumber, callback) { return this.getUncleCountByBlockNumber(blockNumber, callback); },
-    hashrate: function (callback) { return dispatch(eth.hashrate(null, callback)); },
-    mining: function (callback) { return dispatch(eth.mining(null, callback)); },
-    newBlockFilter: function (callback) { return dispatch(eth.newBlockFilter(null, callback)); },
+    hashrate: function (callback) { return dispatch(vap.hashrate(null, callback)); },
+    mining: function (callback) { return dispatch(vap.mining(null, callback)); },
+    newBlockFilter: function (callback) { return dispatch(vap.newBlockFilter(null, callback)); },
     /**
      * @param {{fromBlock:number|string, toBlock:number|string, address:string, topics:string[], limit:number}} filterOptions
      */
     newFilter: function (filterOptions, callback) {
       filterOptions.fromBlock = validateAndDefaultBlockNumber(filterOptions.fromBlock);
       filterOptions.toBlock = validateAndDefaultBlockNumber(filterOptions.toBlock);
-      return dispatch(eth.newFilter(filterOptions, callback));
+      return dispatch(vap.newFilter(filterOptions, callback));
     },
-    newPendingTransactionFilter: function (callback) { return dispatch(eth.newPendingTransactionFilter(null, callback)); },
-    protocolVersion: function (callback) { return dispatch(eth.protocolVersion(null, callback)); },
+    newPendingTransactionFilter: function (callback) { return dispatch(vap.newPendingTransactionFilter(null, callback)); },
+    protocolVersion: function (callback) { return dispatch(vap.protocolVersion(null, callback)); },
     /**
      * @param {string} signedTransaction - RLP encoded transaction signed with private key
      */
@@ -20306,32 +20306,32 @@ var createEthrpc = function (reducer) {
       if (!/^0x[0-9a-fA-F]*$/.test(signedTransaction)) {
         throw new Error("signedTransaction must be RLP encoded hex byte array encoded into a string");
       }
-      return dispatch(eth.sendRawTransaction([signedTransaction], callback));
+      return dispatch(vap.sendRawTransaction([signedTransaction], callback));
     },
     /**
      * @param {{from:string, to:string, gas:number, gasPrice:number, value:number, data:string, nonce:number}} transaction
      */
     sendTransaction: function (transaction, callback) {
       validateTransaction(transaction);
-      return dispatch(eth.sendTransaction([transaction], callback));
+      return dispatch(vap.sendTransaction([transaction], callback));
     },
-    sign: function (address, data, callback) { return dispatch(eth.sign([address, data], callback)); },
+    sign: function (address, data, callback) { return dispatch(vap.sign([address, data], callback)); },
     signTransaction: function (transaction, callback) {
       validateTransaction(transaction);
-      return dispatch(eth.signTransaction([transaction], callback));
+      return dispatch(vap.signTransaction([transaction], callback));
     },
     subscribe: function (label, options, callback) {
       if (options === undefined) options = {};
       if (options === null) options = {};
       if (typeof options !== "object") throw new Error("options must be an object");
-      return dispatch(eth.subscribe([label, options], callback));
+      return dispatch(vap.subscribe([label, options], callback));
     },
     subscribeLogs: function (options, callback) { return this.subscribe("logs", options, callback); },
     subscribeNewHeads: function (callback) { return this.subscribe("newHeads", null, callback); },
     subscribeNewPendingTransactions: function (callback) { return this.subscribe("newPendingTransactions", null, callback); },
-    syncing: function (callback) { return dispatch(eth.syncing(null, callback)); },
-    uninstallFilter: function (filter, callback) { return dispatch(eth.uninstallFilter([filter], callback)); },
-    unsubscribe: function (label, callback) { return dispatch(eth.unsubscribe([label], callback)); },
+    syncing: function (callback) { return dispatch(vap.syncing(null, callback)); },
+    uninstallFilter: function (filter, callback) { return dispatch(vap.uninstallFilter([filter], callback)); },
+    unsubscribe: function (label, callback) { return dispatch(vap.unsubscribe([label], callback)); },
 
     WsTransport: require("./transport/ws-transport"),
 
@@ -20351,7 +20351,7 @@ var createEthrpc = function (reducer) {
     },
 
     handleRPCError: handleRPCError,
-    sendEther: function (to, value, from, onSent, onSuccess, onFailed) { return dispatch(sendEther(to, value, from, onSent, onSuccess, onFailed)); },
+    sendVapor: function (to, value, from, onSent, onSuccess, onFailed) { return dispatch(sendVapor(to, value, from, onSent, onSuccess, onFailed)); },
     publish: function (compiled, callback) { return dispatch(publish(compiled, callback)); },
     ensureLatestBlock: function (callback) { return dispatch(ensureLatestBlock(callback)); },
     isUnlocked: function (account, callback) { return dispatch(isUnlocked(account, callback)); },
@@ -20365,9 +20365,9 @@ var createEthrpc = function (reducer) {
   };
 };
 
-module.exports = createEthrpc;
+module.exports = createVaprpc;
 
-},{"./block-management/ensure-latest-block":51,"./block-management/wait-for-next-blocks":57,"./clear-transactions":58,"./connect":59,"./constants":60,"./debug/set-debug-options":62,"./decode-response/handle-rpc-error":63,"./encode-request/package-request":67,"./errors/codes":69,"./internal-state":73,"./raw-transactions/package-and-sign-raw-transaction":78,"./raw-transactions/package-and-submit-raw-transaction":79,"./raw-transactions/package-raw-transaction":80,"./raw-transactions/sign-raw-transaction":84,"./raw-transactions/sign-raw-transaction-with-key":83,"./reset-state":99,"./start-block-stream.js":102,"./transact/call-contract-function":108,"./transact/call-or-send-transaction":109,"./transact/transact":112,"./transaction-relay/exclude-from-transaction-relay":117,"./transaction-relay/include-in-transaction-relay":118,"./transaction-relay/register-transaction-relay":119,"./transaction-relay/unregister-transaction-relay":120,"./transport/ws-transport":128,"./utils/is-function":130,"./utils/sha3":138,"./validate/validate-and-default-block-number":140,"./validate/validate-transaction":144,"./wrappers/bind-dispatch":147,"./wrappers/eth":148,"./wrappers/is-unlocked":149,"./wrappers/miner":151,"./wrappers/net":152,"./wrappers/personal":153,"./wrappers/publish":154,"./wrappers/raw":155,"./wrappers/resend-raw-transaction":156,"./wrappers/resend-transaction":157,"./wrappers/send-ether":158,"./wrappers/shh":161,"./wrappers/web3":162,"redux":231,"redux-thunk-subscribe":225}],62:[function(require,module,exports){
+},{"./block-management/ensure-latest-block":51,"./block-management/wait-for-next-blocks":57,"./clear-transactions":58,"./connect":59,"./constants":60,"./debug/set-debug-options":62,"./decode-response/handle-rpc-error":63,"./encode-request/package-request":67,"./errors/codes":69,"./internal-state":73,"./raw-transactions/package-and-sign-raw-transaction":78,"./raw-transactions/package-and-submit-raw-transaction":79,"./raw-transactions/package-raw-transaction":80,"./raw-transactions/sign-raw-transaction":84,"./raw-transactions/sign-raw-transaction-with-key":83,"./reset-state":99,"./start-block-stream.js":102,"./transact/call-contract-function":108,"./transact/call-or-send-transaction":109,"./transact/transact":112,"./transaction-relay/exclude-from-transaction-relay":117,"./transaction-relay/include-in-transaction-relay":118,"./transaction-relay/register-transaction-relay":119,"./transaction-relay/unregister-transaction-relay":120,"./transport/ws-transport":128,"./utils/is-function":130,"./utils/sha3":138,"./validate/validate-and-default-block-number":140,"./validate/validate-transaction":144,"./wrappers/bind-dispatch":147,"./wrappers/eth":148,"./wrappers/is-unlocked":149,"./wrappers/miner":151,"./wrappers/net":152,"./wrappers/personal":153,"./wrappers/publish":154,"./wrappers/raw":155,"./wrappers/resend-raw-transaction":156,"./wrappers/resend-transaction":157,"./wrappers/send-vapor":158,"./wrappers/shh":161,"./wrappers/web3":162,"redux":231,"redux-thunk-subscribe":225}],62:[function(require,module,exports){
 "use strict";
 
 module.exports = function (debugOptions) {
@@ -20404,14 +20404,14 @@ var isObject = require("../utils/is-object");
 var errors = require("../errors/codes");
 var RPCError = require("../errors/rpc-error");
 
-function parseEthereumResponse(response, callback) {
+function parseVaporyResponse(response, callback) {
   if (!isObject(response)) return callback(new Error(JSON.stringify(response)));
   if (response.error != null) return callback(new RPCError(response.error));
   if (response.result === undefined) return callback(new RPCError(errors.NO_RESPONSE));
   callback(null, response.result);
 }
 
-module.exports = parseEthereumResponse;
+module.exports = parseVaporyResponse;
 
 },{"../errors/codes":69,"../errors/rpc-error":71,"../utils/is-object":134}],65:[function(require,module,exports){
 "use strict";
@@ -20426,7 +20426,7 @@ var encodePrimitive = function (primitive) {
   if (typeof primitive === "number") return encodeNumber(primitive);
   if (primitive instanceof Array) return encodeArray(primitive);
   if (typeof primitive === "object") return encodeObject(primitive);
-  if (isFunction(primitive)) throw new Error("Cannot encode a function to be sent to Ethereum.");
+  if (isFunction(primitive)) throw new Error("Cannot encode a function to be sent to Vapory.");
   throw new Error("Attempted to encode an unsupported type: " + typeof primitive);
 };
 
@@ -20476,7 +20476,7 @@ var makeRequestPayload = function (command, params, prefix) {
   if (prefix === "null" || prefix === null) {
     method = command.toString();
   } else {
-    method = (prefix || "eth_") + command.toString();
+    method = (prefix || "vap_") + command.toString();
   }
   var payload = {
     id: numRequests++,
@@ -20532,8 +20532,8 @@ var packageRequest = function (payload) {
       }
     }
   }
-  if (tx.to) tx.to = speedomatic.formatEthereumAddress(tx.to);
-  if (tx.from) tx.from = speedomatic.formatEthereumAddress(tx.from);
+  if (tx.to) tx.to = speedomatic.formatVaporyAddress(tx.to);
+  if (tx.from) tx.from = speedomatic.formatVaporyAddress(tx.from);
   var packaged = {
     from: tx.from,
     to: tx.to,
@@ -20554,7 +20554,7 @@ module.exports = packageRequest;
 
 var stripReturnsTypeAndInvocation = function (tx) {
   var returns;
-  if (tx.method === "eth_coinbase") return "address";
+  if (tx.method === "vap_coinbase") return "address";
   if (tx.params !== undefined && tx.params.length && tx.params[0]) {
     if (tx.params[0].returns) {
       returns = tx.params[0].returns;
@@ -20597,7 +20597,7 @@ module.exports={
   },
   "NULL_RESPONSE": {
     "error": 407,
-    "message": "expected transaction hash from Ethereum node, received null"
+    "message": "expected transaction hash from Vapory node, received null"
   },
   "NO_RESPONSE": {
     "error": 408,
@@ -20693,20 +20693,20 @@ module.exports = RPCError;
 },{"immutable-delete":179,"lodash.assign":193}],72:[function(require,module,exports){
 "use strict";
 
-var createEthrpc = require("./create-ethrpc");
+var createVaprpc = require("./create-vaprpc");
 var reducer = require("./reducers");
 var composeReducers = require("./reducers/compose-reducers");
 var version = require("./version");
 
-var ethrpc = createEthrpc(reducer);
-ethrpc.withCustomReducer = function (customReducer) {
-  return createEthrpc(composeReducers(customReducer, reducer));
+var vaprpc = createVaprpc(reducer);
+vaprpc.withCustomReducer = function (customReducer) {
+  return createVaprpc(composeReducers(customReducer, reducer));
 };
 
-ethrpc.lib_version = version;
-module.exports = ethrpc;
+vaprpc.lib_version = version;
+module.exports = vaprpc;
 
-},{"./create-ethrpc":61,"./reducers":93,"./reducers/compose-reducers":87,"./version":145}],73:[function(require,module,exports){
+},{"./create-vaprpc":61,"./reducers":93,"./reducers/compose-reducers":87,"./version":145}],73:[function(require,module,exports){
 "use strict";
 
 var assign = require("lodash.assign");
@@ -20749,7 +20749,7 @@ var RPCError = require("../errors/rpc-error");
 
 /**
  * Validate and submit a signed raw transaction to the network.
- * @param {Object} rawTransactionResponse Error response from the Ethereum node.
+ * @param {Object} rawTransactionResponse Error response from the Vapory node.
  * @return {Object|null} Error or null if retrying due to low nonce.
  */
 function handleRawTransactionError(rawTransactionResponse) {
@@ -20776,7 +20776,7 @@ var errors = require("../errors/codes");
 /**
  * Package and sign a raw transaction.
  * @param {Object} payload Static API data with "params" and "from" set.
- * @param {string} address The sender's Ethereum address.
+ * @param {string} address The sender's Vapory address.
  * @param {buffer|function} privateKeyOrSigner Sender's plaintext private key or signing function.
  * @param {string} accountType One of "privateKey", "uPort", or "ledger".
  * @param {function} callback Callback function.
@@ -20788,7 +20788,7 @@ function packageAndSignRawTransaction(payload, address, privateKeyOrSigner, acco
     if (!isObject(payload)) return callback(new RPCError(errors.TRANSACTION_FAILED));
     if (address == null || privateKeyOrSigner == null) return callback(new RPCError(errors.NOT_LOGGED_IN));
     var packaged = packageRawTransaction(payload, address, state.networkID, state.currentBlock);
-    if (state.debug.broadcast) console.log("[ethrpc] packaged:", JSON.stringify(packaged, null, 2));
+    if (state.debug.broadcast) console.log("[vaprpc] packaged:", JSON.stringify(packaged, null, 2));
     dispatch(setRawTransactionGasPrice(packaged, function (err, packaged) {
       if (err) return callback(err);
       dispatch(setRawTransactionNonce(packaged, address, function (err, packaged) {
@@ -20804,7 +20804,7 @@ module.exports = packageAndSignRawTransaction;
 },{"../errors/codes":69,"../errors/rpc-error":71,"../utils/is-object":134,"./package-raw-transaction":80,"./set-raw-transaction-gas-price":81,"./set-raw-transaction-nonce":82,"./sign-raw-transaction":84,"immutable-delete":179}],79:[function(require,module,exports){
 "use strict";
 
-var eth_sendRawTransaction = require("../wrappers/eth").sendRawTransaction;
+var vap_sendRawTransaction = require("../wrappers/eth").sendRawTransaction;
 var packageAndSignRawTransaction = require("./package-and-sign-raw-transaction");
 var handleRawTransactionError = require("./handle-raw-transaction-error");
 var RPCError = require("../errors/rpc-error");
@@ -20812,9 +20812,9 @@ var errors = require("../errors/codes");
 var ACCOUNT_TYPES = require("../constants").ACCOUNT_TYPES;
 
 /**
- * Package, sign, and submit a raw transaction to Ethereum.
+ * Package, sign, and submit a raw transaction to Vapory.
  * @param {Object} payload Static ABI data with the "params" and "from" fields set.
- * @param {string} address The sender's Ethereum address.
+ * @param {string} address The sender's Vapory address.
  * @param {buffer|function} privateKeyOrSigner Sender's plaintext private key or signing function.
  * @param {string} accountType One of "privateKey", "uPort", or "ledger".
  * @param {function} callback Callback function.
@@ -20825,7 +20825,7 @@ function packageAndSubmitRawTransaction(payload, address, privateKeyOrSigner, ac
     dispatch(packageAndSignRawTransaction(payload, address, privateKeyOrSigner, accountType, function (err, signedRawTransaction) {
       if (err) return callback(err);
       function handleRawTransactionResponse(err, rawTransactionResponse) {
-        if (getState().debug.broadcast) console.log("[ethrpc] sendRawTransaction response:", rawTransactionResponse);
+        if (getState().debug.broadcast) console.log("[vaprpc] sendRawTransaction response:", rawTransactionResponse);
         if (err) {
           var handledError = handleRawTransactionError(err);
           if (handledError != null) return callback(handledError);
@@ -20839,7 +20839,7 @@ function packageAndSubmitRawTransaction(payload, address, privateKeyOrSigner, ac
       if (accountType === ACCOUNT_TYPES.U_PORT) { // signedRawTransaction is transaction hash for uPort
         handleRawTransactionResponse(null, signedRawTransaction);
       } else {
-        dispatch(eth_sendRawTransaction(signedRawTransaction, handleRawTransactionResponse));
+        dispatch(vap_sendRawTransaction(signedRawTransaction, handleRawTransactionResponse));
       }
     }));
   };
@@ -20857,7 +20857,7 @@ var constants = require("../constants");
 /**
  * Package a raw transaction.
  * @param {Object} payload Static API data with "params" and "from" set.
- * @param {string} address The sender's Ethereum address.
+ * @param {string} address The sender's Vapory address.
  * @return {Object} Packaged transaction.
  */
 function packageRawTransaction(payload, address, networkID, currentBlock) {
@@ -20887,7 +20887,7 @@ module.exports = packageRawTransaction;
 "use strict";
 
 var assign = require("lodash.assign");
-var eth_gasPrice = require("../wrappers/eth").gasPrice;
+var vap_gasPrice = require("../wrappers/eth").gasPrice;
 var RPCError = require("../errors/rpc-error");
 var errors = require("../errors/codes");
 
@@ -20900,7 +20900,7 @@ var errors = require("../errors/codes");
 var setRawTransactionGasPrice = function (packaged, callback) {
   return function (dispatch) {
     if (packaged.gasPrice != null) return callback(null, packaged);
-    dispatch(eth_gasPrice(null, function (err, gasPrice) {
+    dispatch(vap_gasPrice(null, function (err, gasPrice) {
       if (err || gasPrice == null) return callback(new RPCError(errors.TRANSACTION_FAILED));
       callback(null, assign({}, packaged, { gasPrice: gasPrice }));
     }));
@@ -20913,7 +20913,7 @@ module.exports = setRawTransactionGasPrice;
 "use strict";
 
 var assign = require("lodash.assign");
-var eth_getTransactionCount = require("../wrappers/eth").getTransactionCount;
+var vap_getTransactionCount = require("../wrappers/eth").getTransactionCount;
 var verifyRawTransactionNonce = require("./verify-raw-transaction-nonce");
 var errors = require("../errors/codes");
 var RPCError = require("../errors/rpc-error");
@@ -20922,13 +20922,13 @@ var RPCError = require("../errors/rpc-error");
 /**
  * Use the number of transactions from this account to set the nonce.
  * @param {Object} packaged Packaged transaction.
- * @param {string} address The sender's Ethereum address.
+ * @param {string} address The sender's Vapory address.
  * @param {function} callback Callback function.
  * @return {Object} Packaged transaction with nonce set.
  */
 function setRawTransactionNonce(packaged, address, callback) {
   return function (dispatch, getState) {
-    dispatch(eth_getTransactionCount([address, "pending"], function (err, transactionCount) {
+    dispatch(vap_getTransactionCount([address, "pending"], function (err, transactionCount) {
       if (getState().debug.tx) console.log("transaction count:", address, transactionCount, parseInt(transactionCount, 16));
       if (err) return callback(err);
       if (transactionCount == null) return callback(new RPCError(errors.NO_RESPONSE));
@@ -20944,7 +20944,7 @@ module.exports = setRawTransactionNonce;
 "use strict";
 
 var speedomatic = require("speedomatic");
-var Transaction = require("ethereumjs-tx");
+var Transaction = require("vaporyjs-tx");
 var RPCError = require("../errors/rpc-error");
 var errors = require("../errors/codes");
 
@@ -20968,7 +20968,7 @@ function signRawTransactionWithKey(packaged, privateKey) {
 module.exports = signRawTransactionWithKey;
 
 }).call(this,require("buffer").Buffer)
-},{"../errors/codes":69,"../errors/rpc-error":71,"buffer":14,"ethereumjs-tx":46,"speedomatic":272}],84:[function(require,module,exports){
+},{"../errors/codes":69,"../errors/rpc-error":71,"buffer":14,"vaporyjs-tx":46,"speedomatic":272}],84:[function(require,module,exports){
 "use strict";
 
 var signRawTransactionWithKey = require("./sign-raw-transaction-with-key");
@@ -21057,11 +21057,11 @@ var assign = require("lodash.assign");
 
 /**
  * @param {function} customReducer External (user-specified) reducer.
- * @param {function} reducer Default ethrpc reducer.
+ * @param {function} reducer Default vaprpc reducer.
  */
 function composeReducers(customReducer, reducer) {
   return function (state, action) {
-    return assign({}, customReducer(state, action), { ethrpc: reducer(state.ethrpc, action) });
+    return assign({}, customReducer(state, action), { vaprpc: reducer(state.vaprpc, action) });
   };
 }
 
@@ -21463,7 +21463,7 @@ module.exports = resetState;
 },{"./clear-transactions":58,"./internal-state":73,"./rpc/blockchain-message-handler":100,"./subscriptions/store-observer":107,"./utils/is-object":134}],100:[function(require,module,exports){
 "use strict";
 
-var parseEthereumResponse = require("../decode-response/parse-ethereum-response");
+var parseVaporyResponse = require("../decode-response/parse-vapory-response");
 var isObject = require("../utils/is-object");
 var ErrorWithData = require("../errors").ErrorWithData;
 var ErrorWithCodeAndData = require("../errors").ErrorWithCodeAndData;
@@ -21478,7 +21478,7 @@ function blockchainMessageHandler(error, jso) {
     var outOfBandErrorHandler, subscriptionHandler, responseHandler, errorHandler, subscriptions, state = getState();
     subscriptions = state.subscriptions;
     outOfBandErrorHandler = internalState.get("outOfBandErrorHandler");
-    // if (state.debug.broadcast) console.log("[ethrpc] RPC response:", JSON.stringify(jso));
+    // if (state.debug.broadcast) console.log("[vaprpc] RPC response:", JSON.stringify(jso));
 
     if (error !== null) {
       return outOfBandErrorHandler(error);
@@ -21489,14 +21489,14 @@ function blockchainMessageHandler(error, jso) {
 
     subscriptionHandler = function () {
       var subscription;
-      if (jso.method !== "eth_subscription") {
-        return outOfBandErrorHandler(new ErrorWithData("Received an RPC request that wasn't an `eth_subscription`.", jso));
+      if (jso.method !== "vap_subscription") {
+        return outOfBandErrorHandler(new ErrorWithData("Received an RPC request that wasn't an `vap_subscription`.", jso));
       }
       if (typeof jso.params.subscription !== "string") {
-        return outOfBandErrorHandler(new ErrorWithData("Received an `eth_subscription` request without a subscription ID.", jso));
+        return outOfBandErrorHandler(new ErrorWithData("Received an `vap_subscription` request without a subscription ID.", jso));
       }
       if (jso.params.result === null || jso.params.result === undefined) {
-        return outOfBandErrorHandler(new ErrorWithData("Received an `eth_subscription` request without a result.", jso));
+        return outOfBandErrorHandler(new ErrorWithData("Received an `vap_subscription` request without a result.", jso));
       }
       subscription = subscriptions[jso.params.subscription];
       if (subscription != null) {
@@ -21516,7 +21516,7 @@ function blockchainMessageHandler(error, jso) {
       }
 
       // FIXME: outstandingRequest.callback should be function(Error,object) not function(Error|object)
-      parseEthereumResponse(jso, outstandingRequest.callback);
+      parseVaporyResponse(jso, outstandingRequest.callback);
     };
 
     errorHandler = function () {
@@ -21542,7 +21542,7 @@ function blockchainMessageHandler(error, jso) {
 
 module.exports = blockchainMessageHandler;
 
-},{"../decode-response/parse-ethereum-response":64,"../errors":70,"../internal-state":73,"../utils/is-object":134}],101:[function(require,module,exports){
+},{"../decode-response/parse-vapory-response":64,"../errors":70,"../internal-state":73,"../utils/is-object":134}],101:[function(require,module,exports){
 "use strict";
 
 var stripReturnsTypeAndInvocation = require("../encode-request/strip-returns-type-and-invocation");
@@ -21577,7 +21577,7 @@ module.exports = submitRequestToBlockchain;
 "use strict";
 
 var createBlockAndLogStreamer = require("./block-management/create-block-and-log-streamer");
-var createTransportAdapter = require("./block-management/ethrpc-transport-adapter");
+var createTransportAdapter = require("./block-management/vaprpc-transport-adapter");
 var onNewBlock = require("./block-management/on-new-block");
 var internalState = require("./internal-state");
 
@@ -21595,7 +21595,7 @@ module.exports = function (startingBlockNumber, callback) {
   };
 };
 
-},{"./block-management/create-block-and-log-streamer":50,"./block-management/ethrpc-transport-adapter":52,"./block-management/on-new-block":54,"./internal-state":73}],103:[function(require,module,exports){
+},{"./block-management/create-block-and-log-streamer":50,"./block-management/vaprpc-transport-adapter":52,"./block-management/on-new-block":54,"./internal-state":73}],103:[function(require,module,exports){
 "use strict";
 
 var addSubscription = require("./add-subscription");
@@ -21748,7 +21748,7 @@ module.exports = callContractFunction;
 },{"../decode-response/handle-rpc-error":63,"../transact/call-or-send-transaction":109,"lodash.assign":193,"speedomatic":272}],109:[function(require,module,exports){
 "use strict";
 
-var eth = require("../wrappers/eth");
+var vap = require("../wrappers/eth");
 var packageRequest = require("../encode-request/package-request");
 var isObject = require("../utils/is-object");
 var errors = require("../errors/codes");
@@ -21764,11 +21764,11 @@ function callOrSendTransaction(payload, callback) {
     }
     if (getState().debug.broadcast) console.log("packaged:", packaged);
     if (payload.estimateGas) {
-      dispatch(eth.estimateGas(packaged, callback));
+      dispatch(vap.estimateGas(packaged, callback));
     } else if (payload.send) {
-      dispatch(eth.sendTransaction(packaged, callback));
+      dispatch(vap.sendTransaction(packaged, callback));
     } else {
-      dispatch(eth.call([packaged, "latest"], callback));
+      dispatch(vap.call([packaged, "latest"], callback));
     }
   };
 }
@@ -21892,7 +21892,7 @@ module.exports = transact;
 
 var speedomatic = require("speedomatic");
 var BigNumber = require("bignumber.js");
-var eth = require("../wrappers/eth");
+var vap = require("../wrappers/eth");
 var isFunction = require("../utils/is-function");
 var logError = require("../utils/log-error");
 var errors = require("../errors/codes");
@@ -21913,7 +21913,7 @@ function updateMinedTx(txHash) {
     var onFailed = isFunction(transaction.onFailed) ? transaction.onFailed : logError;
     if (transaction.confirmations >= constants.REQUIRED_CONFIRMATIONS) {
       dispatch({ type: "TRANSACTION_CONFIRMED", hash: txHash });
-      dispatch(eth.getBlockByNumber([transaction.tx.blockNumber, false], function (err, block) {
+      dispatch(vap.getBlockByNumber([transaction.tx.blockNumber, false], function (err, block) {
         if (err) return onFailed(err);
         if (block == null) return onFailed(new RPCError(errors.BLOCK_NOT_FOUND));
         if (block.timestamp != null) {
@@ -21928,8 +21928,8 @@ function updateMinedTx(txHash) {
           hash: txHash,
           data: { tx: { callReturn: transaction.tx.callReturn } },
         });
-        dispatch(eth.getTransactionReceipt(txHash, function (err, receipt) {
-          if (debug.tx) console.log("[ethrpc] got receipt:", err, receipt);
+        dispatch(vap.getTransactionReceipt(txHash, function (err, receipt) {
+          if (debug.tx) console.log("[vaprpc] got receipt:", err, receipt);
           if (err) return onFailed(err);
           if (receipt == null) return onFailed(new RPCError(errors.TRANSACTION_RECEIPT_NOT_FOUND));
           if (receipt.gasUsed) {
@@ -21967,7 +21967,7 @@ module.exports = updateMinedTx;
 "use strict";
 
 var assign = require("lodash.assign");
-var eth = require("../wrappers/eth");
+var vap = require("../wrappers/eth");
 var updateMinedTx = require("../transact/update-mined-tx");
 var transact = require("../transact/transact");
 var isFunction = require("../utils/is-function");
@@ -21980,7 +21980,7 @@ function updatePendingTx(txHash) {
   return function (dispatch, getState) {
     var storedTransaction = getState().transactions[txHash];
     var onFailed = isFunction(storedTransaction.onFailed) ? storedTransaction.onFailed : logError;
-    dispatch(eth.getTransactionByHash(txHash, function (err, onChainTx) {
+    dispatch(vap.getTransactionByHash(txHash, function (err, onChainTx) {
       if (err) return onFailed(err);
       dispatch({
         type: "UPDATE_TRANSACTION",
@@ -22030,7 +22030,7 @@ function updatePendingTx(txHash) {
             });
             dispatch(updateMinedTx(txHash));
           } else {
-            dispatch(eth.blockNumber(null, function (err, blockNumber) {
+            dispatch(vap.blockNumber(null, function (err, blockNumber) {
               if (err) return onFailed(err);
               dispatch({ type: "SET_CURRENT_BLOCK", data: { number: blockNumber } });
               dispatch({
@@ -22315,9 +22315,9 @@ AbstractTransport.prototype.initialConnect = function (callback) {
 };
 
 /**
- * Implemented by derived prototypes.  Should submit the given object to Ethereum.
+ * Implemented by derived prototypes.  Should submit the given object to Vapory.
  *
- * @param {!object} rpcJso - RPC Object to be sent to Ethereum.
+ * @param {!object} rpcJso - RPC Object to be sent to Vapory.
  * @param {!function(!Error):void} errorCallback - To be called if something goes wrong with the connection.  If the provided error has retryable = true property then the request will be re-queued and connection will be re-established.
  */
 AbstractTransport.prototype.submitRpcRequest = function (rpcJso, errorCallback) {
@@ -22443,7 +22443,7 @@ function checkIfComplete(transporter, resultAggregator, onCompleteCallback) {
     && resultAggregator.httpTransports.every(isNull)
     && resultAggregator.wsTransports.every(isNull)
     && resultAggregator.ipcTransports.every(isNull)) {
-    return onCompleteCallback(new Error("Unable to connect to an Ethereum node via any transport. (Web3, HTTP, WS, IPC)."), null);
+    return onCompleteCallback(new Error("Unable to connect to an Vapory node via any transport. (Web3, HTTP, WS, IPC)."), null);
   }
 
   internalState.web3Transport = resultAggregator.web3Transports.filter(isNotNull)[0] || null;
@@ -23149,65 +23149,65 @@ module.exports = bindDispatch;
 var makeWrapper = require("./make-wrapper");
 
 module.exports = {
-  accounts: makeWrapper("eth_accounts"),
-  blockNumber: makeWrapper("eth_blockNumber"),
-  call: makeWrapper("eth_call"),
-  coinbase: makeWrapper("eth_coinbase"),
-  compileLLL: makeWrapper("eth_compileLLL"),
-  compileSerpent: makeWrapper("eth_compileSerpent"),
-  compileSolidity: makeWrapper("eth_compileSolidity"),
-  estimateGas: makeWrapper("eth_estimateGas"),
-  gasPrice: makeWrapper("eth_gasPrice"),
-  getBalance: makeWrapper("eth_getBalance"),
-  getBlockByHash: makeWrapper("eth_getBlockByHash"),
-  getBlockByNumber: makeWrapper("eth_getBlockByNumber"),
-  getBlockTransactionCountByHash: makeWrapper("eth_getBlockTransactionCountByHash"),
-  getBlockTransactionCountByNumber: makeWrapper("eth_getBlockTransactionCountByNumber"),
-  getCode: makeWrapper("eth_getCode"),
-  getCompilers: makeWrapper("eth_getCompilers"),
-  getFilterChanges: makeWrapper("eth_getFilterChanges"),
-  getFilterLogs: makeWrapper("eth_getFilterLogs"),
-  getLogs: makeWrapper("eth_getLogs"),
-  getStorageAt: makeWrapper("eth_getStorageAt"),
-  getTransactionByBlockHashAndIndex: makeWrapper("eth_getTransactionByBlockHashAndIndex"),
-  getTransactionByBlockNumberAndIndex: makeWrapper("eth_getTransactionByBlockNumberAndIndex"),
-  getTransactionByHash: makeWrapper("eth_getTransactionByHash"),
-  getTransactionCount: makeWrapper("eth_getTransactionCount"),
-  getTransactionReceipt: makeWrapper("eth_getTransactionReceipt"),
-  getUncleByBlockHashAndIndex: makeWrapper("eth_getUncleByBlockHashAndIndex"),
-  getUncleByBlockNumberAndIndex: makeWrapper("eth_getUncleByBlockNumberAndIndex"),
-  getUncleCountByBlockHash: makeWrapper("eth_getUncleCountByBlockHash"),
-  getUncleCountByBlockNumber: makeWrapper("eth_getUncleCountByBlockNumber"),
-  getWork: makeWrapper("eth_getWork"),
-  hashrate: makeWrapper("eth_hashrate"),
-  mining: makeWrapper("eth_mining"),
-  newBlockFilter: makeWrapper("eth_newBlockFilter"),
-  newFilter: makeWrapper("eth_newFilter"),
-  newPendingTransactionFilter: makeWrapper("eth_newPendingTransactionFilter"),
-  protocolVersion: makeWrapper("eth_protocolVersion"),
-  sendRawTransaction: makeWrapper("eth_sendRawTransaction"),
-  sendTransaction: makeWrapper("eth_sendTransaction"),
-  sign: makeWrapper("eth_sign"),
-  signTransaction: makeWrapper("eth_signTransaction"),
-  submitHashrate: makeWrapper("eth_submitHashrate"),
-  submitWork: makeWrapper("eth_submitWork"),
-  subscribe: makeWrapper("eth_subscribe"),
-  syncing: makeWrapper("eth_syncing"),
-  uninstallFilter: makeWrapper("eth_uninstallFilter"),
-  unsubscribe: makeWrapper("eth_unsubscribe"),
+  accounts: makeWrapper("vap_accounts"),
+  blockNumber: makeWrapper("vap_blockNumber"),
+  call: makeWrapper("vap_call"),
+  coinbase: makeWrapper("vap_coinbase"),
+  compileLLL: makeWrapper("vap_compileLLL"),
+  compileSerpent: makeWrapper("vap_compileSerpent"),
+  compileSolidity: makeWrapper("vap_compileSolidity"),
+  estimateGas: makeWrapper("vap_estimateGas"),
+  gasPrice: makeWrapper("vap_gasPrice"),
+  getBalance: makeWrapper("vap_getBalance"),
+  getBlockByHash: makeWrapper("vap_getBlockByHash"),
+  getBlockByNumber: makeWrapper("vap_getBlockByNumber"),
+  getBlockTransactionCountByHash: makeWrapper("vap_getBlockTransactionCountByHash"),
+  getBlockTransactionCountByNumber: makeWrapper("vap_getBlockTransactionCountByNumber"),
+  getCode: makeWrapper("vap_getCode"),
+  getCompilers: makeWrapper("vap_getCompilers"),
+  getFilterChanges: makeWrapper("vap_getFilterChanges"),
+  getFilterLogs: makeWrapper("vap_getFilterLogs"),
+  getLogs: makeWrapper("vap_getLogs"),
+  getStorageAt: makeWrapper("vap_getStorageAt"),
+  getTransactionByBlockHashAndIndex: makeWrapper("vap_getTransactionByBlockHashAndIndex"),
+  getTransactionByBlockNumberAndIndex: makeWrapper("vap_getTransactionByBlockNumberAndIndex"),
+  getTransactionByHash: makeWrapper("vap_getTransactionByHash"),
+  getTransactionCount: makeWrapper("vap_getTransactionCount"),
+  getTransactionReceipt: makeWrapper("vap_getTransactionReceipt"),
+  getUncleByBlockHashAndIndex: makeWrapper("vap_getUncleByBlockHashAndIndex"),
+  getUncleByBlockNumberAndIndex: makeWrapper("vap_getUncleByBlockNumberAndIndex"),
+  getUncleCountByBlockHash: makeWrapper("vap_getUncleCountByBlockHash"),
+  getUncleCountByBlockNumber: makeWrapper("vap_getUncleCountByBlockNumber"),
+  getWork: makeWrapper("vap_getWork"),
+  hashrate: makeWrapper("vap_hashrate"),
+  mining: makeWrapper("vap_mining"),
+  newBlockFilter: makeWrapper("vap_newBlockFilter"),
+  newFilter: makeWrapper("vap_newFilter"),
+  newPendingTransactionFilter: makeWrapper("vap_newPendingTransactionFilter"),
+  protocolVersion: makeWrapper("vap_protocolVersion"),
+  sendRawTransaction: makeWrapper("vap_sendRawTransaction"),
+  sendTransaction: makeWrapper("vap_sendTransaction"),
+  sign: makeWrapper("vap_sign"),
+  signTransaction: makeWrapper("vap_signTransaction"),
+  submitHashrate: makeWrapper("vap_submitHashrate"),
+  submitWork: makeWrapper("vap_submitWork"),
+  subscribe: makeWrapper("vap_subscribe"),
+  syncing: makeWrapper("vap_syncing"),
+  uninstallFilter: makeWrapper("vap_uninstallFilter"),
+  unsubscribe: makeWrapper("vap_unsubscribe"),
 };
 
 },{"./make-wrapper":150}],149:[function(require,module,exports){
 "use strict";
 
-var eth_sign = require("../wrappers/eth").sign;
+var vap_sign = require("../wrappers/eth").sign;
 
 /**
  * Check to see if the provided account is unlocked for the connected node.
  */
 function isUnlocked(account, callback) {
   return function (dispatch) {
-    dispatch(eth_sign([account, "0x00000000000000000000000000000000000000000000000000000000000f69b5"], function (err) {
+    dispatch(vap_sign([account, "0x00000000000000000000000000000000000000000000000000000000000f69b5"], function (err) {
       if (err) {
         if (err.error !== -32000 || err.message !== "account is locked") return callback(err);
         return callback(null, false);
@@ -23273,7 +23273,7 @@ module.exports = {
 },{"./make-wrapper":150}],154:[function(require,module,exports){
 "use strict";
 
-var eth = require("./eth");
+var vap = require("./eth");
 var constants = require("../constants");
 var errors = require("../errors/codes");
 var RPCError = require("../errors/rpc-error");
@@ -23281,10 +23281,10 @@ var RPCError = require("../errors/rpc-error");
 // publish a new contract to the blockchain from the coinbase account
 function publish(compiled, callback) {
   return function (dispatch) {
-    dispatch(eth.coinbase(function (err, coinbase) {
+    dispatch(vap.coinbase(function (err, coinbase) {
       if (err) return callback(err);
       if (coinbase == null) return callback(new RPCError(errors.NO_RESPONSE));
-      dispatch(eth.sendTransaction({ from: coinbase, data: compiled, gas: constants.DEFAULT_GAS }, callback));
+      dispatch(vap.sendTransaction({ from: coinbase, data: compiled, gas: constants.DEFAULT_GAS }, callback));
     }));
   };
 }
@@ -23310,7 +23310,7 @@ module.exports = raw;
 
 var speedomatic = require("speedomatic");
 var clone = require("clone");
-var eth = require("../wrappers/eth");
+var vap = require("../wrappers/eth");
 var signRawTransactionWithKey = require("../raw-transactions/sign-raw-transaction-with-key");
 
 function resendRawTransaction(transaction, privateKey, gasPrice, gasLimit, callback) {
@@ -23319,7 +23319,7 @@ function resendRawTransaction(transaction, privateKey, gasPrice, gasLimit, callb
     if (gasPrice) newTransaction.gasPrice = speedomatic.hex(gasPrice);
     if (gasLimit) newTransaction.gasLimit = speedomatic.hex(gasLimit);
     var signedTransaction = signRawTransactionWithKey(newTransaction, privateKey);
-    return dispatch(eth.sendRawTransaction(signedTransaction, callback));
+    return dispatch(vap.sendRawTransaction(signedTransaction, callback));
   };
 }
 
@@ -23330,14 +23330,14 @@ module.exports = resendRawTransaction;
 
 var speedomatic = require("speedomatic");
 var clone = require("clone");
-var eth = require("../wrappers/eth");
+var vap = require("../wrappers/eth");
 
 function resendTransaction(transaction, gasPrice, gasLimit, callback) {
   return function (dispatch) {
     var newTransaction = clone(transaction);
     if (gasPrice) newTransaction.gasPrice = speedomatic.hex(gasPrice);
     if (gasLimit) newTransaction.gasLimit = speedomatic.hex(gasLimit);
-    return dispatch(eth.sendTransaction(newTransaction, callback));
+    return dispatch(vap.sendTransaction(newTransaction, callback));
   };
 }
 
@@ -23351,7 +23351,7 @@ var transact = require("../transact/transact");
 var isObject = require("../utils/is-object");
 
 // TODO remove flexible function signature
-function sendEther(to, value, from, onSent, onSuccess, onFailed) {
+function sendVapor(to, value, from, onSent, onSuccess, onFailed) {
   return function (dispatch) {
     if (isObject(to)) {
       value = to.value;
@@ -23371,20 +23371,20 @@ function sendEther(to, value, from, onSent, onSuccess, onFailed) {
   };
 }
 
-module.exports = sendEther;
+module.exports = sendVapor;
 
 },{"../transact/transact":112,"../utils/is-object":134,"speedomatic":272}],159:[function(require,module,exports){
 "use strict";
 
 var speedomatic = require("speedomatic");
-var eth_coinbase = require("./eth").coinbase;
+var vap_coinbase = require("./eth").coinbase;
 
 function setCoinbase(callback) {
   return function (dispatch) {
-    dispatch(eth_coinbase(null, function (err, coinbase) {
+    dispatch(vap_coinbase(null, function (err, coinbase) {
       if (err) return callback(err);
       if (coinbase != null) {
-        dispatch({ type: "SET_COINBASE", address: speedomatic.formatEthereumAddress(coinbase) });
+        dispatch({ type: "SET_COINBASE", address: speedomatic.formatVaporyAddress(coinbase) });
       }
       callback(null);
     }));
@@ -23396,12 +23396,12 @@ module.exports = setCoinbase;
 },{"./eth":148,"speedomatic":272}],160:[function(require,module,exports){
 "use strict";
 
-var eth_gasPrice = require("./eth").gasPrice;
+var vap_gasPrice = require("./eth").gasPrice;
 var isHex = require("../utils/is-hex");
 
 function setGasPrice(callback) {
   return function (dispatch) {
-    dispatch(eth_gasPrice(null, function (err, gasPrice) {
+    dispatch(vap_gasPrice(null, function (err, gasPrice) {
       if (err) return callback(err);
       if (gasPrice != null && isHex(gasPrice)) {
         dispatch({ type: "SET_GAS_PRICE", gasPrice: parseInt(gasPrice, 16) });
@@ -41242,7 +41242,7 @@ module.exports = RIPEMD160
 (function (Buffer){
 const assert = require('assert')
 /**
- * RLP Encoding based on: https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP
+ * RLP Encoding based on: https://github.com/vaporyco/wiki/wiki/%5BEnglish%5D-RLP
  * This function takes in a data, convert it to buffer if not, and a length for recursion
  *
  * @param {Buffer,String,Integer,Array} data - will be converted to buffer
@@ -41286,7 +41286,7 @@ function encodeLength (len, offset) {
 }
 
 /**
- * RLP Decoding based on: {@link https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP|RLP}
+ * RLP Decoding based on: {@link https://github.com/vaporyco/wiki/wiki/%5BEnglish%5D-RLP|RLP}
  * @param {Buffer,String,Integer,Array} data - will be converted to buffer
  * @returns {Array} - returns decode Array of Buffers containg the original message
  **/
@@ -43137,7 +43137,7 @@ module.exports = abiDecodeBytes;
 (function (Buffer){
 "use strict";
 
-var rawDecode = require("ethereumjs-abi").rawDecode;
+var rawDecode = require("vaporyjs-abi").rawDecode;
 var formatAbiRawDecodedDataArray = require("./format-abi-raw-decoded-data-array");
 var strip0xPrefix = require("./strip-0x-prefix");
 
@@ -43154,7 +43154,7 @@ function abiDecodeData(inputs, abiEncodedData) {
 module.exports = abiDecodeData;
 
 }).call(this,require("buffer").Buffer)
-},{"./format-abi-raw-decoded-data-array":267,"./strip-0x-prefix":279,"buffer":14,"ethereumjs-abi":39}],252:[function(require,module,exports){
+},{"./format-abi-raw-decoded-data-array":267,"./strip-0x-prefix":279,"buffer":14,"vaporyjs-abi":39}],252:[function(require,module,exports){
 "use strict";
 
 var abiDecodeData = require("./abi-decode-data");
@@ -43190,7 +43190,7 @@ module.exports = abiDecodeShortStringAsInt256;
 },{"./remove-trailing-zeros":277,"./strip-0x-prefix":279,"buffer":14}],254:[function(require,module,exports){
 "use strict";
 
-var rawEncode = require("ethereumjs-abi").rawEncode;
+var rawEncode = require("vaporyjs-abi").rawEncode;
 var removeTrailingZeros = require("./remove-trailing-zeros");
 
 // convert bytes to ABI format
@@ -43202,24 +43202,24 @@ function abiEncodeBytes(bytesToEncode, isPadded) {
 
 module.exports = abiEncodeBytes;
 
-},{"./remove-trailing-zeros":277,"ethereumjs-abi":39}],255:[function(require,module,exports){
+},{"./remove-trailing-zeros":277,"vaporyjs-abi":39}],255:[function(require,module,exports){
 "use strict";
 
-var ethereumjsAbi = require("ethereumjs-abi");
+var vaporyjsAbi = require("vaporyjs-abi");
 
 // ABI-encode the 'data' field in a transaction payload
 function abiEncodeData(payload, format) {
-  var abiEncodedData = ethereumjsAbi.rawEncode(payload.signature || [], payload.params);
+  var abiEncodedData = vaporyjsAbi.rawEncode(payload.signature || [], payload.params);
   if (format === "hex") return "0x" + abiEncodedData.toString("hex");
   return abiEncodedData;
 }
 
 module.exports = abiEncodeData;
 
-},{"ethereumjs-abi":39}],256:[function(require,module,exports){
+},{"vaporyjs-abi":39}],256:[function(require,module,exports){
 "use strict";
 
-var rawEncode = require("ethereumjs-abi").rawEncode;
+var rawEncode = require("vaporyjs-abi").rawEncode;
 
 function abiEncodeInt256(value) {
   return rawEncode(["int256"], [value]).toString("hex");
@@ -43227,7 +43227,7 @@ function abiEncodeInt256(value) {
 
 module.exports = abiEncodeInt256;
 
-},{"ethereumjs-abi":39}],257:[function(require,module,exports){
+},{"vaporyjs-abi":39}],257:[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
@@ -43247,20 +43247,20 @@ module.exports = abiEncodeShortStringAsInt256;
 (function (Buffer){
 "use strict";
 
-var ethereumjsAbi = require("ethereumjs-abi");
+var vaporyjsAbi = require("vaporyjs-abi");
 var abiEncodeData = require("./abi-encode-data");
 var prefixHex = require("./prefix-hex");
 
 // ABI-encode the 'data' field in a transaction payload, with method ID prefix
 function abiEncodeTransactionPayload(payload) {
   payload.signature = payload.signature || [];
-  return prefixHex(Buffer.concat([ethereumjsAbi.methodID(payload.name, payload.signature), abiEncodeData(payload)]).toString("hex"));
+  return prefixHex(Buffer.concat([vaporyjsAbi.methodID(payload.name, payload.signature), abiEncodeData(payload)]).toString("hex"));
 }
 
 module.exports = abiEncodeTransactionPayload;
 
 }).call(this,require("buffer").Buffer)
-},{"./abi-encode-data":255,"./prefix-hex":276,"buffer":14,"ethereumjs-abi":39}],259:[function(require,module,exports){
+},{"./abi-encode-data":255,"./prefix-hex":276,"buffer":14,"vaporyjs-abi":39}],259:[function(require,module,exports){
 "use strict";
 
 var BigNumber = require("bignumber.js");
@@ -43496,7 +43496,7 @@ module.exports = formatAbiRawDecodedDataArray;
 },{"./format-abi-raw-decoded-data":268}],268:[function(require,module,exports){
 "use strict";
 
-var formatEthereumAddress = require("./format-ethereum-address");
+var formatVaporyAddress = require("./format-vapory-address");
 var hex = require("./hex");
 var prefixHex = require("./prefix-hex");
 
@@ -43508,7 +43508,7 @@ function formatAbiRawDecodedData(inputType, decodedData) {
     });
   }
   if (inputType.startsWith("address")) {
-    return formatEthereumAddress(decodedData.toString("hex"));
+    return formatVaporyAddress(decodedData.toString("hex"));
   } else if (inputType === "bytes") {
     return prefixHex(decodedData.toString("hex"));
   } else if (inputType.startsWith("bytes")) {
@@ -43519,17 +43519,17 @@ function formatAbiRawDecodedData(inputType, decodedData) {
 
 module.exports = formatAbiRawDecodedData;
 
-},{"./format-ethereum-address":269,"./hex":271,"./prefix-hex":276}],269:[function(require,module,exports){
+},{"./format-vapory-address":269,"./hex":271,"./prefix-hex":276}],269:[function(require,module,exports){
 "use strict";
 
 var prefixHex = require("./prefix-hex");
 var strip0xPrefix = require("./strip-0x-prefix");
 
-function formatEthereumAddress(addr) {
+function formatVaporyAddress(addr) {
   if (addr == null) return addr;
   if (Array.isArray(addr)) {
     for (var i = 0, n = addr.length; i < n; ++i) {
-      addr[i] = formatEthereumAddress(addr[i]);
+      addr[i] = formatVaporyAddress(addr[i]);
     }
     return addr;
   }
@@ -43545,7 +43545,7 @@ function formatEthereumAddress(addr) {
   }
 }
 
-module.exports = formatEthereumAddress;
+module.exports = formatVaporyAddress;
 
 },{"./prefix-hex":276,"./strip-0x-prefix":279}],270:[function(require,module,exports){
 (function (Buffer){
@@ -43649,7 +43649,7 @@ module.exports = {
   hex: require("./hex"),
   isHex: require("./is-hex"),
   formatInt256: require("./format-int256"),
-  formatEthereumAddress: require("./format-ethereum-address"),
+  formatVaporyAddress: require("./format-vapory-address"),
   strip0xPrefix: require("./strip-0x-prefix"),
   prefixHex: require("./prefix-hex"),
   bignum: require("./bignum"),
@@ -43670,7 +43670,7 @@ module.exports = {
   serialize: require("./serialize")
 };
 
-},{"./abi-decode-bytes":250,"./abi-decode-data":251,"./abi-decode-rpc-response":252,"./abi-decode-short-string-as-int256":253,"./abi-encode-bytes":254,"./abi-encode-data":255,"./abi-encode-int256":256,"./abi-encode-short-string-as-int256":257,"./abi-encode-transaction-payload":258,"./bignum":259,"./byte-array-to-hex-string":260,"./byte-array-to-utf8-string":261,"./constants":263,"./encode-number-as-base10-string":264,"./encode-number-as-js-number":265,"./fix":266,"./format-abi-raw-decoded-data":268,"./format-abi-raw-decoded-data-array":267,"./format-ethereum-address":269,"./format-int256":270,"./hex":271,"./is-hex":273,"./pad-left":274,"./pad-right":275,"./prefix-hex":276,"./serialize":278,"./strip-0x-prefix":279,"./unfix":281,"./unfix-signed":280,"./unfork":282,"./unroll-array":283,"bignumber.js":5}],273:[function(require,module,exports){
+},{"./abi-decode-bytes":250,"./abi-decode-data":251,"./abi-decode-rpc-response":252,"./abi-decode-short-string-as-int256":253,"./abi-encode-bytes":254,"./abi-encode-data":255,"./abi-encode-int256":256,"./abi-encode-short-string-as-int256":257,"./abi-encode-transaction-payload":258,"./bignum":259,"./byte-array-to-hex-string":260,"./byte-array-to-utf8-string":261,"./constants":263,"./encode-number-as-base10-string":264,"./encode-number-as-js-number":265,"./fix":266,"./format-abi-raw-decoded-data":268,"./format-abi-raw-decoded-data-array":267,"./format-vapory-address":269,"./format-int256":270,"./hex":271,"./is-hex":273,"./pad-left":274,"./pad-right":275,"./prefix-hex":276,"./serialize":278,"./strip-0x-prefix":279,"./unfix":281,"./unfix-signed":280,"./unfork":282,"./unroll-array":283,"bignumber.js":5}],273:[function(require,module,exports){
 "use strict";
 
 function isHex(str) {
@@ -45343,11 +45343,11 @@ var setContracts = require("./set-contracts");
 var setFrom = require("./set-from");
 var setupEventsABI = require("./setup-events-abi");
 var setupFunctionsABI = require("./setup-functions-abi");
-var createEthrpcConfiguration = require("./create-ethrpc-configuration");
+var createVaprpcConfiguration = require("./create-vaprpc-configuration");
 
 // asynchronous connection sequence
 function asyncConnect(rpc, configuration, callback) {
-  rpc.connect(createEthrpcConfiguration(configuration), function () {
+  rpc.connect(createVaprpcConfiguration(configuration), function () {
     async.parallel({
       networkID: function (next) { setNetworkID(rpc, next); },
       blockNumber: function (next) { setBlockNumber(rpc, next); },
@@ -45369,10 +45369,10 @@ function asyncConnect(rpc, configuration, callback) {
 
 module.exports = asyncConnect;
 
-},{"./create-ethrpc-configuration":303,"./set-block-number":305,"./set-coinbase":306,"./set-contracts":307,"./set-from":308,"./set-gas-price":309,"./set-network-id":310,"./setup-events-abi":311,"./setup-functions-abi":312,"async":3}],301:[function(require,module,exports){
+},{"./create-vaprpc-configuration":303,"./set-block-number":305,"./set-coinbase":306,"./set-contracts":307,"./set-from":308,"./set-gas-price":309,"./set-network-id":310,"./setup-events-abi":311,"./setup-functions-abi":312,"async":3}],301:[function(require,module,exports){
 "use strict";
 
-var rpc = require("ethrpc");
+var rpc = require("vaprpc");
 var asyncConnect = require("./async-connect");
 var createConfiguration = require("./create-configuration");
 
@@ -45387,7 +45387,7 @@ function connect(options, callback) {
 
 module.exports = connect;
 
-},{"./async-connect":300,"./create-configuration":302,"ethrpc":72}],302:[function(require,module,exports){
+},{"./async-connect":300,"./create-configuration":302,"vaprpc":72}],302:[function(require,module,exports){
 "use strict";
 
 var assign = require("lodash.assign");
@@ -45410,20 +45410,20 @@ module.exports = createConfiguration;
 },{"lodash.assign":193}],303:[function(require,module,exports){
 "use strict";
 
-function createEthrpcConfiguration(configuration) {
-  var ethrpcConfiguration = {
+function createVaprpcConfiguration(configuration) {
+  var vaprpcConfiguration = {
     connectionTimeout: 60000,
     errorHandler: function (err) { if (err) console.error(err); }
   };
-  ethrpcConfiguration.httpAddresses = configuration.httpAddresses;
-  ethrpcConfiguration.wsAddresses = configuration.wsAddresses;
-  ethrpcConfiguration.ipcAddresses = configuration.ipcAddresses;
-  ethrpcConfiguration.networkID = configuration.networkID;
-  ethrpcConfiguration.startBlockStreamOnConnect = configuration.startBlockStreamOnConnect;
-  return ethrpcConfiguration;
+  vaprpcConfiguration.httpAddresses = configuration.httpAddresses;
+  vaprpcConfiguration.wsAddresses = configuration.wsAddresses;
+  vaprpcConfiguration.ipcAddresses = configuration.ipcAddresses;
+  vaprpcConfiguration.networkID = configuration.networkID;
+  vaprpcConfiguration.startBlockStreamOnConnect = configuration.startBlockStreamOnConnect;
+  return vaprpcConfiguration;
 }
 
-module.exports = createEthrpcConfiguration;
+module.exports = createVaprpcConfiguration;
 
 },{}],304:[function(require,module,exports){
 "use strict";
@@ -45501,7 +45501,7 @@ module.exports = setFrom;
 "use strict";
 
 function setGasPrice(rpc, callback) {
-  rpc.eth.gasPrice(function (err, gasPrice) {
+  rpc.vap.gasPrice(function (err, gasPrice) {
     if (err) return callback(err);
     if (!gasPrice) return callback(new Error("setGasPrice failed"));
     callback(null, parseInt(gasPrice, 16));

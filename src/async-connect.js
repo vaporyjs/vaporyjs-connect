@@ -9,11 +9,11 @@ var setContracts = require("./set-contracts");
 var setFrom = require("./set-from");
 var setupEventsABI = require("./setup-events-abi");
 var setupFunctionsABI = require("./setup-functions-abi");
-var createEthrpcConfiguration = require("./create-ethrpc-configuration");
+var createVaprpcConfiguration = require("./create-vaprpc-configuration");
 
 // asynchronous connection sequence
 function asyncConnect(rpc, configuration, callback) {
-  rpc.connect(createEthrpcConfiguration(configuration), function () {
+  rpc.connect(createVaprpcConfiguration(configuration), function () {
     async.parallel({
       networkID: function (next) { setNetworkID(rpc, next); },
       blockNumber: function (next) { setBlockNumber(rpc, next); },

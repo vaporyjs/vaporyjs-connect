@@ -1,16 +1,16 @@
 "use strict";
 
-function createEthrpcConfiguration(configuration) {
-  var ethrpcConfiguration = {
+function createVaprpcConfiguration(configuration) {
+  var vaprpcConfiguration = {
     connectionTimeout: 60000,
     errorHandler: function (err) { if (err) console.error(err); }
   };
-  ethrpcConfiguration.httpAddresses = configuration.httpAddresses;
-  ethrpcConfiguration.wsAddresses = configuration.wsAddresses;
-  ethrpcConfiguration.ipcAddresses = configuration.ipcAddresses;
-  ethrpcConfiguration.networkID = configuration.networkID;
-  ethrpcConfiguration.startBlockStreamOnConnect = configuration.startBlockStreamOnConnect;
-  return ethrpcConfiguration;
+  vaprpcConfiguration.httpAddresses = configuration.httpAddresses;
+  vaprpcConfiguration.wsAddresses = configuration.wsAddresses;
+  vaprpcConfiguration.ipcAddresses = configuration.ipcAddresses;
+  vaprpcConfiguration.networkID = configuration.networkID;
+  vaprpcConfiguration.startBlockStreamOnConnect = configuration.startBlockStreamOnConnect;
+  return vaprpcConfiguration;
 }
 
-module.exports = createEthrpcConfiguration;
+module.exports = createVaprpcConfiguration;

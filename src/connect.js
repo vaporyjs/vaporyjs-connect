@@ -1,6 +1,6 @@
 "use strict";
 
-var rpc = require("ethrpc");
+var rpc = require("vaprpc");
 var asyncConnect = require("./async-connect");
 var createConfiguration = require("./create-configuration");
 

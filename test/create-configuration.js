@@ -129,7 +129,7 @@ describe("create-configuration", function () {
       options: {
         http: "http://127.0.0.1:8545",
         ws: "ws://127.0.0.1:8546",
-        ipc: "/home/jack/.ethereum/geth.ipc",
+        ipc: "/home/jack/.vapory/gvap.ipc",
         api: {
           events: {
             event1: { contract: "contract1" },
@@ -148,7 +148,7 @@ describe("create-configuration", function () {
       assert.deepEqual(configuration, {
         http: "http://127.0.0.1:8545",
         ws: "ws://127.0.0.1:8546",
-        ipc: "/home/jack/.ethereum/geth.ipc",
+        ipc: "/home/jack/.vapory/gvap.ipc",
         api: {
           events: {
             event1: { contract: "contract1" },
@@ -163,7 +163,7 @@ describe("create-configuration", function () {
         contracts: { 3: { contract1: "0xc1", contract2: "0xc2" } },
         httpAddresses: ["http://127.0.0.1:8545"],
         wsAddresses: ["ws://127.0.0.1:8546"],
-        ipcAddresses: ["/home/jack/.ethereum/geth.ipc"]
+        ipcAddresses: ["/home/jack/.vapory/gvap.ipc"]
       });
     }
   });
