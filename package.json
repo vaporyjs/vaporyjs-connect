@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/vaporyjs/vaporyjs-connect#readme",
   "dependencies": {
-    "async": "1.5.2",
+    "async": "3.2.2",
     "clone": "2.1.1",
     "vaprpc": "5.0.1"
   },
